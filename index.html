@@ -344,14 +344,42 @@
 </script>
     
 
-    <script>
+   <script>
+        // 1. CONFIGURACIÓN INICIAL
         const modelViewer = document.querySelector('#moto-3d');
-
+    
+        // 2. FUNCIÓN PARA EMPEZAR (LANDING)
         function startApp() {
-        // Busca la pantalla de inicio y le añade la clase 'hidden' para que suba
-        document.getElementById('landing').classList.add('hidden');
+            // Busca la pantalla de inicio y le añade la clase 'hidden' para que suba
+            const landing = document.getElementById('landing');
+            if (landing) {
+                landing.classList.add('hidden');
+            }
         }
-
+    
+        // 3. LÓGICA DE LOS DESPLEGABLES (ACORDEONES)
+        // Usamos una sola declaración para evitar errores de duplicado
+        const acc = document.getElementsByClassName("accordion");
+        
+        for (let i = 0; i < acc.length; i++) {
+            acc[i].onclick = function() {
+                // Alternamos la clase 'active' para el estilo visual del botón
+                this.classList.toggle("active");
+                
+                // Seleccionamos el panel que está justo debajo del botón
+                const panel = this.nextElementSibling;
+                
+                if (panel.style.maxHeight) {
+                    // Si el panel está abierto, lo ponemos a 0 para que se recoja
+                    panel.style.maxHeight = null;
+                } else {
+                    // Si está cerrado, le damos la altura real de su contenido
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                }
+            };
+        }
+    
+        // 4. FUNCIONES DE CAMBIO DE MATERIAL
         function changeColor(pieza, color) {
             const material = modelViewer.model.materials.find(m => m.name === pieza);
             if (material) {
@@ -360,47 +388,17 @@
                 console.log("No se encontró el material: " + pieza);
             }
         }
-
-        var acc = document.getElementsByClassName("accordion");
-        var i;
-        
-        for (i = 0; i < acc.length; i++) {
-          acc[i].addEventListener("click", function() {
-            this.classList.toggle("active");
-            var panel = this.nextElementSibling;
-            if (panel.style.maxHeight) {
-              panel.style.maxHeight = null;
-            } else {
-              panel.style.maxHeight = panel.scrollHeight + "px";
-            } 
-          });
-        }
-    </script>
     
-    <script>
-        // Seleccionamos todos los botones de la clase accordion
-        const acc = document.getElementsByClassName("accordion");
-        
-        for (let i = 0; i < acc.length; i++) {
-            acc[i].onclick = function() {
-                // Alternamos la clase 'active' para el estilo del botón
-                this.classList.toggle("active");
-                
-                // Seleccionamos el panel que está justo después del botón
-                const panel = this.nextElementSibling;
-                
-                // Si el panel ya está abierto (tiene altura)
-                if (panel.style.maxHeight) {
-                    panel.style.maxHeight = null; // Se cierra
-                } else {
-                    // Si está cerrado, le damos la altura total de su contenido
-                    panel.style.maxHeight = panel.scrollHeight + "px";
-                }
-            };
+        function setRoughness(pieza, valor) {
+            const material = modelViewer.model.materials.find(m => m.name === pieza);
+            if (material) {
+                material.pbrMetallicRoughness.setRoughnessFactor(valor);
+            }
         }
     </script>
 </body>
 </html>
+
 
 
 
