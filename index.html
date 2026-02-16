@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Configurador Pro Cafe Racer | BMW K100</title>
+    <title>Configurador Pro Cafe Racer</title>
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
     
     <style>
         :root {
             --accent: #ff4444; 
             --bg: #0a0a0a;
-            --panel: rgba(20, 20, 20, 0.95);
-            --border: rgba(255, 255, 255, 0.1);
+            --panel-bg: #141414;
+            --border: rgba(255,255,255,0.08);
         }
 
         body {
             margin: 0;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg);
             color: white;
             display: flex;
@@ -28,222 +28,252 @@
         #landing {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), 
-                        url('https://images.unsplash.com/photo-1558981806-ec527fa84c39?q=80&w=2070&auto=format&fit=crop'); 
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 100;
-            transition: transform 0.8s cubic-bezier(0.87, 0, 0.13, 1);
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('BMW-K100-Cafe-Racer-1.jpg'); 
+            background-size: cover; background-position: center;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 100; transition: transform 0.8s cubic-bezier(0.87, 0, 0.13, 1);
         }
-
-        #landing h1 { font-size: 3rem; letter-spacing: 5px; margin-bottom: 0; }
-        #landing p { letter-spacing: 2px; margin-bottom: 30px; color: #bbb; }
 
         .btn-configurar {
-            padding: 18px 50px;
-            background: var(--accent);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            text-transform: uppercase;
-            transition: 0.3s;
+            padding: 15px 40px; background: var(--accent); color: white;
+            border: none; border-radius: 50px; cursor: pointer;
+            font-weight: bold; text-transform: uppercase; margin-top: 20px;
         }
 
-        .btn-configurar:hover { transform: scale(1.05); background: #cc0000; }
         .hidden { transform: translateY(-100%); }
 
         /* Visor 3D */
         model-viewer {
-            flex: 1;
-            height: 100%;
+            flex: 1; height: 100%;
             background: radial-gradient(#2c3e50, #000000);
-            --poster-color: transparent;
         }
 
-        /* Sidebar */
+        /* Sidebar con Scroll */
         .sidebar {
-            width: 350px;
-            background: var(--panel);
-            backdrop-filter: blur(20px);
+            width: 320px;
+            background: var(--panel-bg);
             border-left: 1px solid var(--border);
-            padding: 0;
-            overflow-y: auto;
             display: flex;
             flex-direction: column;
+            overflow-y: auto;
             z-index: 10;
         }
 
-        .sidebar-content { padding: 25px; }
+        .sidebar-header {
+            padding: 25px;
+            border-bottom: 1px solid var(--border);
+        }
 
         h2 {
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin: 0 0 25px 0;
-            color: var(--accent);
-            border-left: 4px solid var(--accent);
-            padding-left: 15px;
+            font-size: 1.2rem; text-transform: uppercase;
+            letter-spacing: 2px; margin: 0; color: var(--accent);
         }
 
-        .control-group { margin-bottom: 30px; }
+        /* Estilos Acordeón */
+        .accordion {
+            background-color: transparent;
+            color: #ddd;
+            cursor: pointer;
+            padding: 20px 25px;
+            width: 100%;
+            border: none;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+            font-size: 0.85rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .accordion:hover { background-color: #1a1a1a; color: white; }
+        
+        .accordion:after {
+            content: '\002B'; /* Símbolo + */
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+
+        .active { background-color: #1a1a1a; color: var(--accent); }
+        .active:after { content: "\2212"; } /* Símbolo - */
+
+        .panel {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+            background-color: #0d0d0d;
+        }
+
+        .panel-content {
+            padding: 20px 25px;
+        }
+
+        /* Controles internos */
+        .control-item { margin-bottom: 20px; }
+        .control-item:last-child { margin-bottom: 0; }
 
         label {
-            display: block;
-            font-size: 0.75rem;
-            color: #aaa;
-            text-transform: uppercase;
-            margin-bottom: 12px;
-            font-weight: 600;
-            letter-spacing: 1px;
+            display: block; font-size: 0.7rem; color: #777;
+            text-transform: uppercase; margin-bottom: 10px; font-weight: bold;
         }
 
-        /* Grid de colores mejorado */
         .color-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 12px;
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
         }
 
         .color-dot {
-            aspect-ratio: 1/1;
-            border-radius: 50%;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            aspect-ratio: 1/1; border-radius: 4px; cursor: pointer;
+            border: 2px solid rgba(255,255,255,0.1); transition: 0.2s;
         }
 
-        .color-dot:hover { transform: scale(1.2); border-color: white; }
+        .color-dot:hover { transform: scale(1.1); border-color: white; }
 
-        /* Acordeones */
-        .accordion {
-            background: #151515;
-            color: #eee;
-            cursor: pointer;
-            padding: 18px 25px;
-            width: 100%;
-            border: none;
-            text-align: left;
-            font-size: 0.8rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-        }
+        .row { display: flex; gap: 8px; margin-top: 10px; }
 
-        .panel {
-            background-color: #0f0f0f;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-        }
-
-        .panel-inner { padding: 20px 25px; }
-
-        .row { display: flex; gap: 10px; }
-        
         .btn-finish {
-            flex: 1;
-            background: #222;
-            color: #fff;
-            border: 1px solid #333;
-            padding: 10px;
-            cursor: pointer;
-            font-size: 10px;
-            text-transform: uppercase;
-            transition: 0.2s;
+            flex: 1; background: #222; color: white; border: 1px solid #333;
+            padding: 8px; cursor: pointer; font-size: 9px; text-transform: uppercase;
         }
 
-        .btn-finish:hover { background: var(--accent); }
+        .btn-finish:hover { background: #333; border-color: var(--accent); }
 
-        /* Estilo de scroll */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-thumb { background: #333; }
     </style>
 </head>
 <body>
 
     <section id="landing">
-        <h1>CAFE RACER LAB</h1>
-        <p>CUSTOMIZE YOUR BMW K100</p>
-        <button class="btn-configurar" onclick="startApp()">Empezar Proyecto</button>
+        <h1>CAFE RACER PROJECT</h1>
+        <p>BMW K100 CUSTOMIZER</p>
+        <button class="btn-configurar" onclick="startApp()">Entrar al Taller</button>
     </section>
 
     <model-viewer id="moto-3d" 
         src="BMWK100.glb" 
         camera-controls 
         auto-rotate
-        shadow-intensity="1" 
+        shadow-intensity="1.5" 
         environment-image="neutral" 
-        exposure="1.2" 
+        exposure="1.1" 
         camera-orbit="45deg 75deg 105%">
     </model-viewer>
 
     <div class="sidebar">
-        <div class="sidebar-content">
-            <h2>Configurador</h2>
+        <div class="sidebar-header">
+            <h2>Personalizar</h2>
+        </div>
 
-            <div class="control-group">
-                <label>Depósito & Guardabarros</label>
-                <div class="color-grid">
-                    <div class="color-dot" style="background: #d32f2f" onclick="changeColor(['Tanque', 'Guardabarros'], '#d32f2f')"></div>
-                    <div class="color-dot" style="background: #1976d2" onclick="changeColor(['Tanque', 'Guardabarros'], '#1976d2')"></div>
-                    <div class="color-dot" style="background: #111111" onclick="changeColor(['Tanque', 'Guardabarros'], '#111111')"></div>
-                    <div class="color-dot" style="background: #bdc3c7" onclick="changeColor(['Tanque', 'Guardabarros'], '#bdc3c7')"></div>
-                    <div class="color-dot" style="background: #27ae60" onclick="changeColor(['Tanque', 'Guardabarros'], '#27ae60')"></div>
+        <button class="accordion">Carrocería</button>
+        <div class="panel">
+            <div class="panel-content">
+                <div class="control-item">
+                    <label>Depósito (Tanque)</label>
+                    <div class="color-grid">
+                        <div class="color-dot" style="background:#d32f2f" onclick="changeColor('Tanque', '#d32f2f')"></div>
+                        <div class="color-dot" style="background:#1976d2" onclick="changeColor('Tanque', '#1976d2')"></div>
+                        <div class="color-dot" style="background:#111" onclick="changeColor('Tanque', '#111')"></div>
+                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Tanque', '#bdc3c7')"></div>
+                    </div>
                 </div>
-            </div>
-
-            <div class="control-group">
-                <label>Chasis & Estructura</label>
-                <div class="color-grid">
-                    <div class="color-dot" style="background: #111" onclick="changeColor('Chasis', '#111')"></div>
-                    <div class="color-dot" style="background: #444" onclick="changeColor('Chasis', '#444')"></div>
-                    <div class="color-dot" style="background: #d32f2f" onclick="changeColor('Chasis', '#d32f2f')"></div>
+                <div class="control-item">
+                    <label>Guardabarros</label>
+                    <div class="color-grid">
+                        <div class="color-dot" style="background:#d32f2f" onclick="changeColor('Guardabarros', '#d32f2f')"></div>
+                        <div class="color-dot" style="background:#111" onclick="changeColor('Guardabarros', '#111')"></div>
+                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Guardabarros', '#bdc3c7')"></div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <button class="accordion">Ruedas y Llantas</button>
+        <button class="accordion">Estructura y Motor</button>
         <div class="panel">
-            <div class="panel-inner">
-                <label>Color</label>
+            <div class="panel-content">
+                <div class="control-item">
+                    <label>Chasis</label>
+                    <div class="color-grid">
+                        <div class="color-dot" style="background:#111" onclick="changeColor('Chasis', '#111')"></div>
+                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Chasis', '#bdc3c7')"></div>
+                        <div class="color-dot" style="background:#d32f2f" onclick="changeColor('Chasis', '#d32f2f')"></div>
+                    </div>
+                </div>
+                <div class="control-item">
+                    <label>Bloque Motor</label>
+                    <div class="color-grid">
+                        <div class="color-dot" style="background:#111" onclick="changeColor('Motor', '#111')"></div>
+                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Motor', '#bdc3c7')"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="accordion">Tren Delantero</button>
+        <div class="panel">
+            <div class="panel-content">
+                <div class="control-item">
+                    <label>Horquillas</label>
+                    <div class="color-grid">
+                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Horquillas', '#bdc3c7')"></div>
+                        <div class="color-dot" style="background:#d4af37" onclick="changeColor('Horquillas', '#d4af37')"></div>
+                        <div class="color-dot" style="background:#111" onclick="changeColor('Horquillas', '#111')"></div>
+                    </div>
+                </div>
+                <div class="control-item">
+                    <label>Tija Superior</label>
+                    <div class="color-grid">
+                        <div class="color-dot" style="background:#111" onclick="changeColor('Tija', '#111')"></div>
+                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Tija', '#bdc3c7')"></div>
+                    </div>
+                </div>
+                <div class="control-item">
+                    <label>Faro / Luz</label>
+                    <div class="color-grid">
+                        <div class="color-dot" style="background:#111" onclick="changeColor('Luz', '#111')"></div>
+                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Luz', '#bdc3c7')"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="accordion">Tren Trasero</button>
+        <div class="panel">
+            <div class="panel-content">
+                <div class="control-item">
+                    <label>Muelle Amortiguador</label>
+                    <div class="color-grid">
+                        <div class="color-dot" style="background:#ff0000" onclick="changeColor('Muelle', '#ff0000')"></div>
+                        <div class="color-dot" style="background:#f1c40f" onclick="changeColor('Muelle', '#f1c40f')"></div>
+                        <div class="color-dot" style="background:#27ae60" onclick="changeColor('Muelle', '#27ae60')"></div>
+                    </div>
+                </div>
+                <div class="control-item">
+                    <label>Cuerpo Suspensión</label>
+                    <div class="color-grid">
+                        <div class="color-dot" style="background:#111" onclick="changeColor('Supension', '#111')"></div>
+                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Supension', '#bdc3c7')"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="accordion">Llantas y Acabados</button>
+        <div class="panel">
+            <div class="panel-content">
+                <label>Color de llanta</label>
                 <div class="color-grid">
                     <div class="color-dot" style="background: #000" onclick="changeColor('Llantas', '#000')"></div>
                     <div class="color-dot" style="background: #bdc3c7" onclick="changeColor('Llantas', '#bdc3c7')"></div>
-                    <div class="color-dot" style="background: #d4af37" onclick="changeColor('Llantas', '#d4af37')"></div>
                 </div>
                 <br>
-                <label>Acabado Metal</label>
+                <label>Efecto Material</label>
                 <div class="row">
-                    <button class="btn-finish" onclick="setRoughness('Llantas', 0.1, 1)">Cromo</button>
-                    <button class="btn-finish" onclick="setRoughness('Llantas', 0.8, 0)">Mate</button>
+                    <button class="btn-finish" onclick="setRoughness('Llantas', 0.05)">Brillante</button>
+                    <button class="btn-finish" onclick="setRoughness('Llantas', 0.9)">Mate</button>
                 </div>
             </div>
         </div>
 
-        <button class="accordion">Suspensión</button>
-        <div class="panel">
-            <div class="panel-inner">
-                <label>Horquillas Delanteras</label>
-                <div class="color-grid">
-                    <div class="color-dot" style="background: #bdc3c7" onclick="changeColor('Horquillas', '#bdc3c7')"></div>
-                    <div class="color-dot" style="background: #d4af37" onclick="changeColor('Horquillas', '#d4af37')"></div>
-                    <div class="color-dot" style="background: #111" onclick="changeColor('Horquillas', '#111')"></div>
-                </div>
-            </div>
-        </div>
-
-        <div style="padding: 25px; margin-top: auto;">
-            <button class="btn-finish" style="width: 100%;" onclick="location.reload()">Resetear Configuración</button>
-        </div>
     </div>
 
 <script>
@@ -253,10 +283,20 @@
         document.getElementById('landing').classList.add('hidden');
     }
 
-    // Lógica de acordeones mejorada
+    // Lógica de acordeones única para todos
     const acc = document.getElementsByClassName("accordion");
     for (let i = 0; i < acc.length; i++) {
-        acc[i].onclick = function() {
+        acc[i].addEventListener("click", function() {
+            // Cierra los demás paneles si quieres un comportamiento de "solo uno abierto"
+            /*
+            for (let j = 0; j < acc.length; j++) {
+                if (acc[j] !== this) {
+                    acc[j].classList.remove("active");
+                    acc[j].nextElementSibling.style.maxHeight = null;
+                }
+            }
+            */
+            
             this.classList.toggle("active");
             const panel = this.nextElementSibling;
             if (panel.style.maxHeight) {
@@ -264,33 +304,22 @@
             } else {
                 panel.style.maxHeight = panel.scrollHeight + "px";
             }
-        };
-    }
-
-    /**
-     * Cambia el color de una o varias piezas
-     * @param {string|Array} piezas - Nombre o array de nombres de los materiales
-     * @param {string} color - Color en formato Hex
-     */
-    function changeColor(piezas, color) {
-        const piezasArray = Array.isArray(piezas) ? piezas : [piezas];
-        
-        piezasArray.forEach(pieza => {
-            const material = modelViewer.model.materials.find(m => m.name === pieza);
-            if (material) {
-                material.pbrMetallicRoughness.setBaseColorFactor(color);
-            }
         });
     }
 
-    /**
-     * Ajusta el brillo y metalizado
-     */
-    function setRoughness(pieza, roughness, metallic) {
+    function changeColor(pieza, color) {
         const material = modelViewer.model.materials.find(m => m.name === pieza);
         if (material) {
-            material.pbrMetallicRoughness.setRoughnessFactor(roughness);
-            material.pbrMetallicRoughness.setMetallicFactor(metallic);
+            material.pbrMetallicRoughness.setBaseColorFactor(color);
+        } else {
+            console.warn("No se encontró el material: " + pieza);
+        }
+    }
+
+    function setRoughness(pieza, valor) {
+        const material = modelViewer.model.materials.find(m => m.name === pieza);
+        if (material) {
+            material.pbrMetallicRoughness.setRoughnessFactor(valor);
         }
     }
 </script>
