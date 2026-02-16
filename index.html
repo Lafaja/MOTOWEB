@@ -44,25 +44,41 @@
         <div slot="poster">Cargando tu Cafe Racer...</div>
     </model-viewer>
 
-    <div class="controls">
-        <h3>Color Tanque:</h3>
-        <button class="btn-color" style="background: #e74c3c;" onclick="changeColor('#e74c3c')">Rojo Racing</button>
-        <button class="btn-color" style="background: #2c3e50;" onclick="changeColor('#2c3e50')">Negro Mate</button>
-        <button class="btn-color" style="background: #27ae60;" onclick="changeColor('#27ae60')">Verde Británico</button>
+    <div class="controls" style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+    
+    <div>
+        <label>Color del Tanque:</label>
+        <button onclick="changePartColor('Tanque', '#ff0000')" style="background:red; width:30px; height:30px; border-radius:50%;"></button>
+        <button onclick="changePartColor('Tanque', '#0000ff')" style="background:blue; width:30px; height:30px; border-radius:50%;"></button>
+        <button onclick="changePartColor('Tanque', '#333333')" style="background:#333; width:30px; height:30px; border-radius:50%;"></button>
     </div>
 
+    <div>
+        <label>Color del Chasis:</label>
+        <button onclick="changePartColor('Chasis', '#ffffff')" style="background:white; width:30px; height:30px; border-radius:50%;"></button>
+        <button onclick="changePartColor('Chasis', '#000000')" style="background:black; width:30px; height:30px; border-radius:50%;"></button>
+        <button onclick="changePartColor('Chasis', '#f1c40f')" style="background:gold; width:30px; height:30px; border-radius:50%;"></button>
+    </div>
+
+    </div>
+    
     <script>
         const modelViewer = document.querySelector('#moto-3d');
-
-        // Función mágica para cambiar el color de una pieza específica
-        function changeColor(color) {
-            // "Material[0]" es el primer material que encuentre el modelo. 
-            // En Blender debes nombrar el material del tanque como 'Tanque'
-            const material = modelViewer.model.materials[0]; 
-            material.pbrMetallicRoughness.setBaseColorFactor(color);
+    
+        // Función universal para cambiar color por nombre de pieza
+        function changePartColor(nombrePieza, colorHex) {
+            // Buscamos el material que coincida con el nombre que pusiste en Blender
+            const material = modelViewer.model.materials.find(m => m.name === nombrePieza);
+            
+            if (material) {
+                material.pbrMetallicRoughness.setBaseColorFactor(colorHex);
+            } else {
+                console.warn("No encontré la pieza: " + nombrePieza + ". Revisa los nombres en Blender.");
+            }
         }
     </script>
 
 </body>
 
 </html>
+
