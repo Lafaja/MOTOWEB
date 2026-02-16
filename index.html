@@ -137,6 +137,46 @@
         .btn-finish:hover { background: var(--accent); }
 
         .row { display: flex; justify-content: space-between; }
+
+        /* Estilo del botón que abre el desplegable */
+        .accordion {
+            background-color: #1a1a1a;
+            color: white;
+            cursor: pointer;
+            padding: 15px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid #333;
+            transition: 0.3s;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .accordion:hover { background-color: #252525; }
+        
+        /* El símbolo + o - */
+        .accordion:after {
+            content: '\002B'; /* Símbolo + */
+            color: var(--accent);
+            font-weight: bold;
+        }
+        
+        .active:after { content: "\2212"; } /* Símbolo - */
+        
+        /* Contenedor del contenido (oculto por defecto) */
+        .panel {
+            padding: 0 15px;
+            background-color: #111;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+        }
     </style>
 </head>
 <body>
@@ -214,14 +254,23 @@
         </div>
 
         
-        <div class="control-group">
-            <label>Llantas</label>
+        <button class="accordion">Llantas</button>
+        <div class="panel">
+            <br> <label>Color de llanta</label>
             <div class="color-grid">
-                <div class="color-dot black" onclick="changeColor('Llantas', '#000000')"></div>
-                <div class="color-dot silver" onclick="changeColor('Llantas', '#bdc3c7')"></div>
-                <div class="color-dot gold" onclick="changeColor('Llantas', '#f1c40f')"></div>
+                <div class="color-dot" style="background: #000" onclick="changeColor('Llantas', '#000')"></div>
+                <div class="color-dot" style="background: #bdc3c7" onclick="changeColor('Llantas', '#bdc3c7')"></div>
             </div>
-        </div>
+        
+            <br>
+        
+            <label>Acabado</label>
+            <div class="row">
+                <button class="btn-finish" onclick="setRoughness('Llantas', 0.05)">Cromo</button>
+                <button class="btn-finish" onclick="setRoughness('Llantas', 0.9)">Mate</button>
+            </div>
+            
+            <br> </div>
 
         <div class="control-group">
             <label>Horquillas</label>
@@ -297,9 +346,25 @@
                 console.log("No se encontró el material: " + pieza);
             }
         }
+
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+        
+        for (i = 0; i < acc.length; i++) {
+          acc[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+              panel.style.maxHeight = null;
+            } else {
+              panel.style.maxHeight = panel.scrollHeight + "px";
+            } 
+          });
+        }
     </script>
 </body>
 </html>
+
 
 
 
