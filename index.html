@@ -42,7 +42,21 @@
 </head>
 <body>
 
-    <model-viewer id="moto-3d" src="BMWK100.glb?v=2" camera-controls auto-rotate shadow-intensity="1" environment-image="neutral" exposure="1.2">
+    <model-viewer id="moto-3d" 
+        src="BMWK100.glb?v=3" 
+        camera-controls 
+        auto-rotate
+        shadow-intensity="2" 
+        shadow-softness="1"
+        environment-image="neutral" 
+        exposure="1.1" 
+        camera-orbit="45deg 75deg 105%"
+        min-camera-orbit="auto auto 50%"
+        max-camera-orbit="auto auto 200%">
+        
+        <div slot="poster" style="color: grey; text-align: center; margin-top: 40%;">
+            CONFIGURANDO BMW K100...
+        </div>
     </model-viewer>
 
     <div class="sidebar">
@@ -143,6 +157,26 @@
 
         </div>
 
+        <div class="control-group">
+            <label>Acabado del Tanque</label>
+            <div style="display: flex; gap: 10px;">
+                <button onclick="setRoughness('Tanque', 0.1)" style="flex:1; background:#333; color:white; border:none; padding:8px; border-radius:5px; cursor:pointer;">BRILLO</button>
+                <button onclick="setRoughness('Tanque', 0.8)" style="flex:1; background:#333; color:white; border:none; padding:8px; border-radius:5px; cursor:pointer;">MATE</button>
+            </div>
+        </div>
+
+<script>
+    // Nueva función para cambiar entre Mate y Brillo
+    function setRoughness(pieza, valor) {
+        const material = modelViewer.model.materials.find(m => m.name === pieza);
+        if (material) {
+            // Roughness 0 es espejo, Roughness 1 es totalmente mate
+            material.pbrMetallicRoughness.setRoughnessFactor(valor);
+        }
+    }
+</script>
+    
+
     <script>
         const modelViewer = document.querySelector('#moto-3d');
 
@@ -157,6 +191,7 @@
     </script>
 </body>
 </html>
+
 
 
 
