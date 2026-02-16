@@ -2,84 +2,112 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Configurador Cafe Racer 3D</title>
+    <title>Configurador Pro Cafe Racer</title>
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
     
     <style>
-        body { margin: 0; font-family: sans-serif; background-color: #1a1a1a; color: white; }
-        model-viewer { width: 100vw; height: 80vh; background-color: #222; }
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: #111; display: flex; height: 100vh; overflow: hidden; }
         
-        .controls {
+        /* Visor 3D a la izquierda */
+        model-viewer { flex: 1; height: 100%; background: radial-gradient(#444, #111); }
+
+        /* Menú lateral a la derecha */
+        .sidebar {
+            width: 300px;
+            background: #222;
+            border-left: 2px solid #333;
             padding: 20px;
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            background: #111;
+            overflow-y: auto; /* Permite scroll si hay muchas piezas */
+            box-shadow: -5px 0 15px rgba(0,0,0,0.5);
         }
 
-        button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
+        h2 { color: #fff; font-size: 1.2rem; border-bottom: 1px solid #444; padding-bottom: 10px; }
+        .control-group { margin-bottom: 20px; }
+        label { color: #aaa; display: block; margin-bottom: 8px; font-size: 0.9rem; text-transform: uppercase; }
+        
+        .color-grid { display: flex; gap: 8px; flex-wrap: wrap; }
+        
+        .color-dot {
+            width: 35px; height: 35px; border-radius: 50%; border: 2px solid transparent;
+            cursor: pointer; transition: 0.2s;
         }
+        .color-dot:hover { transform: scale(1.1); border-color: white; }
 
-        .btn-color { background-color: #ff4444; color: white; }
-        .btn-color:hover { opacity: 0.8; }
+        /* Colores rápidos */
+        .red { background: #d32f2f; } .blue { background: #1976d2; }
+        .black { background: #111; } .silver { background: #bdc3c7; }
+        .gold { background: #f1c40f; } .white { background: #fff; }
+        .green { background: #27ae60; }
     </style>
 </head>
 <body>
 
-    <model-viewer id="moto-3d" 
-        src="BMWK100.glb?v=1.1" 
-        camera-controls 
-        auto-rotate 
-        shadow-intensity="1" 
-        ar 
-        touch-action="pan-y">
-        
-        <div slot="poster">Cargando tu Cafe Racer...</div>
+    <model-viewer id="moto-3d" src="BMWK100.glb?v=2" camera-controls auto-rotate shadow-intensity="1" environment-image="neutral" exposure="1.2">
     </model-viewer>
 
-    <div class="controls" style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
-    
-    <div>
-        <label>Color del Tanque:</label>
-        <button onclick="changePartColor('Tanque', '#ff0000')" style="background:red; width:30px; height:30px; border-radius:50%;"></button>
-        <button onclick="changePartColor('Tanque', '#0000ff')" style="background:blue; width:30px; height:30px; border-radius:50%;"></button>
-        <button onclick="changePartColor('Tanque', '#333333')" style="background:#333; width:30px; height:30px; border-radius:50%;"></button>
-    </div>
+    <div class="sidebar">
+        <h2>Personalizar Moto</h2>
 
-    <div>
-        <label>Color del Chasis:</label>
-        <button onclick="changePartColor('Chasis', '#ffffff')" style="background:white; width:30px; height:30px; border-radius:50%;"></button>
-        <button onclick="changePartColor('Chasis', '#000000')" style="background:black; width:30px; height:30px; border-radius:50%;"></button>
-        <button onclick="changePartColor('Chasis', '#f1c40f')" style="background:gold; width:30px; height:30px; border-radius:50%;"></button>
-    </div>
+        <div class="control-group">
+            <label>Depósito (Tanque)</label>
+            <div class="color-grid">
+                <div class="color-dot red" onclick="changeColor('Tanque', '#d32f2f')"></div>
+                <div class="color-dot blue" onclick="changeColor('Tanque', '#1976d2')"></div>
+                <div class="color-dot black" onclick="changeColor('Tanque', '#111')"></div>
+                <div class="color-dot silver" onclick="changeColor('Tanque', '#bdc3c7')"></div>
+            </div>
+        </div>
 
-    </div>
-    
+        <div class="control-group">
+            <label>Chasis</label>
+            <div class="color-grid">
+                <div class="color-dot black" onclick="changeColor('Chasis', '#111')"></div>
+                <div class="color-dot silver" onclick="changeColor('Chasis', '#bdc3c7')"></div>
+                <div class="color-dot red" onclick="changeColor('Chasis', '#d32f2f')"></div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label>Llantas</label>
+            <div class="color-grid">
+                <div class="color-dot black" onclick="changeColor('Llantas', '#000000')"></div>
+                <div class="color-dot silver" onclick="changeColor('Llantas', '#bdc3c7')"></div>
+                <div class="color-dot gold" onclick="changeColor('Llantas', '#f1c40f')"></div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label>Horquillas y Tija</label>
+            <div class="color-grid">
+                <div class="color-dot silver" onclick="changeColor('Horquillas', '#bdc3c7'); changeColor('Tija', '#bdc3c7')"></div>
+                <div class="color-dot gold" onclick="changeColor('Horquillas', '#d4af37'); changeColor('Tija', '#d4af37')"></div>
+                <div class="color-dot black" onclick="changeColor('Horquillas', '#111'); changeColor('Tija', '#111')"></div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label>Muelle Trasero</label>
+            <div class="color-grid">
+                <div class="color-dot red" onclick="changeColor('Muelle', '#ff0000')"></div>
+                <div class="color-dot gold" onclick="changeColor('Muelle', '#f1c40f')"></div>
+                <div class="color-dot green" onclick="changeColor('Muelle', '#27ae60')"></div>
+            </div>
+        </div>
+
+        </div>
+
     <script>
         const modelViewer = document.querySelector('#moto-3d');
-    
-        // Función universal para cambiar color por nombre de pieza
-        function changePartColor(nombrePieza, colorHex) {
-            // Buscamos el material que coincida con el nombre que pusiste en Blender
-            const material = modelViewer.model.materials.find(m => m.name === nombrePieza);
-            
+
+        function changeColor(pieza, color) {
+            const material = modelViewer.model.materials.find(m => m.name === pieza);
             if (material) {
-                material.pbrMetallicRoughness.setBaseColorFactor(colorHex);
+                material.pbrMetallicRoughness.setBaseColorFactor(color);
             } else {
-                console.warn("No encontré la pieza: " + nombrePieza + ". Revisa los nombres en Blender.");
+                console.log("No se encontró el material: " + pieza);
             }
         }
     </script>
-
 </body>
-
 </html>
-
 
