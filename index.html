@@ -233,8 +233,8 @@
                 <div class="panel-content">
                     <label>Tipo de Tacómetro</label>
                     <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                        <button class="btn-finish" onclick="toggleTacometro('analogico')">Analógico Retro</button>
-                        <button class="btn-finish" onclick="toggleTacometro('digital')">Digital Moderno</button>
+                        <button class="btn-finish" id="btn-analog" onclick="toggleTacometro('analogico')">Analógico Retro</button>
+                        <button class="btn-finish" id="btn-digital" onclick="toggleTacometro('digital')">Digital Moderno</button>
                     </div>
                     <p style="font-size: 0.6rem; color: #555; margin-top: 10px; text-transform: uppercase;">
                         * Cambia el estilo del panel de instrumentos
@@ -283,35 +283,53 @@
         if (material) material.pbrMetallicRoughness.setRoughnessFactor(valor);
     }
 
-    function toggleTacometro(tipo) {
-        // Buscamos todos los nodos del modelo
-        const model = document.querySelector('#moto-3d');
-        
-        // Si usas variantes de glTF (el método profesional):
-        // model.variantName = tipo === 'analogico' ? 'Variant_Analog' : 'Variant_Digital';
+   // Variable para rastrear el estado
+let tacometroActual = 'analogico';
 
-        // Si usas objetos separados (el método común), buscamos por nombre de material o nodo:
-        const materiales = model.model.materials;
-        
-        materiales.forEach(mat => {
-            if (mat.name === "TACOMETRO_ANALOGICO" || mat.name === "TACOMETRO_DIGITAL") {
-                if (tipo === 'analogico') {
-                    // Si elegimos analógico, mostramos uno y ocultamos otro (vía opacidad)
-                    if (mat.name === "TACOMETRO_ANALOGICO") mat.setAlphaMode("OPAQUE");
-                    if (mat.name === "TACOMETRO_DIGITAL") mat.setAlphaMode("BLEND"); // Oculta visualmente
+// Ejecutar configuración inicial cuando el modelo cargue
+modelViewer.addEventListener('load', () => {
+    console.log("Modelo cargado, configurando tacómetros...");
+    // Forzamos el estado inicial
+    toggleTacometro('analogico');
+});
+
+function toggleTacometro(tipo) {
+    const materiales = modelViewer.model.materials;
+    
+    materiales.forEach(mat => {
+        // Buscamos los materiales específicos
+        if (mat.name === "Tacometro_Analogico" || mat.name === "Tacometro_Digital") {
+            
+            if (tipo === 'analogico') {
+                if (mat.name === "Tacometro_Analogico") {
+                    mat.setAlphaMode("OPAQUE");
+                    mat.pbrMetallicRoughness.setBaseColorFactor([1, 1, 1, 1]);
                 } else {
-                    if (mat.name === "TACOMETRO_ANALOGICO") mat.setAlphaMode("BLEND");
-                    if (mat.name === "TACOMETRO_DIGITAL") mat.setAlphaMode("OPAQUE");
+                    // Ocultamos el digital
+                    mat.setAlphaMode("BLEND");
+                    mat.pbrMetallicRoughness.setBaseColorFactor([1, 1, 1, 0]);
+                }
+            } else {
+                if (mat.name === "Tacometro_Digital") {
+                    mat.setAlphaMode("OPAQUE");
+                    mat.pbrMetallicRoughness.setBaseColorFactor([1, 1, 1, 1]);
+                } else {
+                    // Ocultamos el analógico
+                    mat.setAlphaMode("BLEND");
+                    mat.pbrMetallicRoughness.setBaseColorFactor([1, 1, 1, 0]);
                 }
             }
-        });
-        
-        // Nota: Para que esto sea 100% efectivo, los objetos deben tener 
-        // nombres de materiales distintos en Blender/3D Max.
-    }
+        }
+    });
+
+    // Feedback visual en los botones (opcional)
+    document.getElementById('btn-analog').style.borderColor = (tipo === 'analogico') ? 'var(--accent)' : '#333';
+    document.getElementById('btn-digital').style.borderColor = (tipo === 'digital') ? 'var(--accent)' : '#333';
+}
 </script>
 </body>
 </html>
+
 
 
 
