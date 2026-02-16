@@ -16,7 +16,7 @@
 
         body {
             margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg);
             color: white;
             display: flex;
@@ -28,10 +28,10 @@
         #landing {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('BMW-K100-Cafe-Racer-1.jpg'); 
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('BMW-K100-Cafe-Racer-1.jpg'); 
             background-size: cover; background-position: center;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            z-index: 100; transition: transform 0.8s cubic-bezier(0.87, 0, 0.13, 1);
+            z-index: 100; transition: transform 0.6s cubic-bezier(0.85, 0, 0.15, 1);
         }
 
         .btn-configurar {
@@ -48,38 +48,42 @@
             background: radial-gradient(#2c3e50, #000000);
         }
 
-        /* Sidebar con Scroll */
+        /* Sidebar con Scroll Mejorado */
         .sidebar {
             width: 320px;
             background: var(--panel-bg);
             border-left: 1px solid var(--border);
             display: flex;
             flex-direction: column;
-            overflow-y: auto;
             z-index: 10;
         }
 
         .sidebar-header {
-            padding: 25px;
+            padding: 20px 25px;
             border-bottom: 1px solid var(--border);
+            background: #1a1a1a;
         }
 
-        h2 {
-            font-size: 1.2rem; text-transform: uppercase;
-            letter-spacing: 2px; margin: 0; color: var(--accent);
+        .scroll-container {
+            flex: 1;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent) #1a1a1a;
         }
+
+        h2 { font-size: 1rem; text-transform: uppercase; letter-spacing: 2px; margin: 0; color: var(--accent); }
 
         /* Estilos Acordeón */
         .accordion {
             background-color: transparent;
-            color: #ddd;
+            color: #bbb;
             cursor: pointer;
-            padding: 20px 25px;
+            padding: 18px 25px;
             width: 100%;
             border: none;
             border-bottom: 1px solid var(--border);
             text-align: left;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: bold;
             text-transform: uppercase;
             transition: 0.3s;
@@ -91,127 +95,103 @@
         .accordion:hover { background-color: #1a1a1a; color: white; }
         
         .accordion:after {
-            content: '\002B'; /* Símbolo + */
+            content: '\002B';
             color: var(--accent);
-            font-size: 1.2rem;
+            font-size: 1.1rem;
+            transition: 0.3s;
         }
 
-        .active { background-color: #1a1a1a; color: var(--accent); }
-        .active:after { content: "\2212"; } /* Símbolo - */
+        .active { background-color: #1a1a1a; color: white; border-bottom: 1px solid var(--accent); }
+        .active:after { content: "\2212"; transform: rotate(180deg); }
 
         .panel {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.4s ease-out;
+            transition: max-height 0.3s ease-in-out;
             background-color: #0d0d0d;
         }
 
-        .panel-content {
-            padding: 20px 25px;
-        }
+        .panel-content { padding: 20px 25px; }
 
-        /* Controles internos */
-        .control-item { margin-bottom: 20px; }
-        .control-item:last-child { margin-bottom: 0; }
-
-        label {
-            display: block; font-size: 0.7rem; color: #777;
-            text-transform: uppercase; margin-bottom: 10px; font-weight: bold;
-        }
-
-        .color-grid {
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
-        }
-
-        .color-dot {
-            aspect-ratio: 1/1; border-radius: 4px; cursor: pointer;
-            border: 2px solid rgba(255,255,255,0.1); transition: 0.2s;
-        }
-
-        .color-dot:hover { transform: scale(1.1); border-color: white; }
-
-        .row { display: flex; gap: 8px; margin-top: 10px; }
+        /* Grid de Colores */
+        label { display: block; font-size: 0.65rem; color: #666; text-transform: uppercase; margin-bottom: 10px; font-weight: bold; }
+        .color-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 15px; }
+        .color-dot { aspect-ratio: 1/1; border-radius: 4px; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); transition: 0.2s; }
+        .color-dot:hover { transform: scale(1.15); border-color: white; }
 
         .btn-finish {
             flex: 1; background: #222; color: white; border: 1px solid #333;
             padding: 8px; cursor: pointer; font-size: 9px; text-transform: uppercase;
         }
+        .btn-finish:hover { background: var(--accent); border-color: white; }
 
-        .btn-finish:hover { background: #333; border-color: var(--accent); }
-
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-thumb { background: var(--accent); }
     </style>
 </head>
 <body>
 
     <section id="landing">
-        <h1>CAFE RACER PROJECT</h1>
-        <p>BMW K100 CUSTOMIZER</p>
-        <button class="btn-configurar" onclick="startApp()">Entrar al Taller</button>
+        <h1>CAFE RACER LAB</h1>
+        <button class="btn-configurar" onclick="startApp()">Personalizar BMW K100</button>
     </section>
 
-    <model-viewer id="moto-3d" 
-        src="BMWK100.glb" 
-        camera-controls 
-        auto-rotate
-        shadow-intensity="1.5" 
-        environment-image="neutral" 
-        exposure="1.1" 
-        camera-orbit="45deg 75deg 105%">
-    </model-viewer>
+    <model-viewer id="moto-3d" src="BMWK100.glb" camera-controls auto-rotate shadow-intensity="1.5" exposure="1.1" camera-orbit="45deg 75deg 105%"></model-viewer>
 
     <div class="sidebar">
         <div class="sidebar-header">
-            <h2>Personalizar</h2>
+            <h2>Configurador</h2>
         </div>
 
-        <button class="accordion">Carrocería</button>
-        <div class="panel">
-            <div class="panel-content">
-                <div class="control-item">
-                    <label>Depósito (Tanque)</label>
+        <div class="scroll-container">
+            <button class="accordion">Carrocería</button>
+            <div class="panel">
+                <div class="panel-content">
+                    <label>Depósito</label>
                     <div class="color-grid">
                         <div class="color-dot" style="background:#d32f2f" onclick="changeColor('Tanque', '#d32f2f')"></div>
-                        <div class="color-dot" style="background:#1976d2" onclick="changeColor('Tanque', '#1976d2')"></div>
                         <div class="color-dot" style="background:#111" onclick="changeColor('Tanque', '#111')"></div>
                         <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Tanque', '#bdc3c7')"></div>
+                        <div class="color-dot" style="background:#1976d2" onclick="changeColor('Tanque', '#1976d2')"></div>
                     </div>
-                </div>
-                <div class="control-item">
                     <label>Guardabarros</label>
                     <div class="color-grid">
                         <div class="color-dot" style="background:#d32f2f" onclick="changeColor('Guardabarros', '#d32f2f')"></div>
                         <div class="color-dot" style="background:#111" onclick="changeColor('Guardabarros', '#111')"></div>
-                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Guardabarros', '#bdc3c7')"></div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <button class="accordion">Estructura y Motor</button>
-        <div class="panel">
-            <div class="panel-content">
-                <div class="control-item">
+            <button class="accordion">Mecánica & Chasis</button>
+            <div class="panel">
+                <div class="panel-content">
                     <label>Chasis</label>
                     <div class="color-grid">
                         <div class="color-dot" style="background:#111" onclick="changeColor('Chasis', '#111')"></div>
                         <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Chasis', '#bdc3c7')"></div>
-                        <div class="color-dot" style="background:#d32f2f" onclick="changeColor('Chasis', '#d32f2f')"></div>
                     </div>
-                </div>
-                <div class="control-item">
-                    <label>Bloque Motor</label>
+                    <label>Motor</label>
                     <div class="color-grid">
                         <div class="color-dot" style="background:#111" onclick="changeColor('Motor', '#111')"></div>
                         <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Motor', '#bdc3c7')"></div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <button class="accordion">Tren Delantero</button>
-        <div class="panel">
-            <div class="panel-content">
-                <div class="control-item">
+            <button class="accordion">Iluminación</button>
+            <div class="panel">
+                <div class="panel-content">
+                    <label>Carcasa de Faro</label>
+                    <div class="color-grid">
+                        <div class="color-dot" style="background:#111" onclick="changeColor('Luz', '#111')"></div>
+                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Luz', '#bdc3c7')"></div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="accordion">Tren Delantero</button>
+            <div class="panel">
+                <div class="panel-content">
                     <label>Horquillas</label>
                     <div class="color-grid">
                         <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Horquillas', '#bdc3c7')"></div>
@@ -219,61 +199,35 @@
                         <div class="color-dot" style="background:#111" onclick="changeColor('Horquillas', '#111')"></div>
                     </div>
                 </div>
-                <div class="control-item">
-                    <label>Tija Superior</label>
-                    <div class="color-grid">
-                        <div class="color-dot" style="background:#111" onclick="changeColor('Tija', '#111')"></div>
-                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Tija', '#bdc3c7')"></div>
-                    </div>
-                </div>
-                <div class="control-item">
-                    <label>Faro / Luz</label>
-                    <div class="color-grid">
-                        <div class="color-dot" style="background:#111" onclick="changeColor('Luz', '#111')"></div>
-                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Luz', '#bdc3c7')"></div>
-                    </div>
-                </div>
             </div>
-        </div>
 
-        <button class="accordion">Tren Trasero</button>
-        <div class="panel">
-            <div class="panel-content">
-                <div class="control-item">
-                    <label>Muelle Amortiguador</label>
+            <button class="accordion">Suspensión Trasera</button>
+            <div class="panel">
+                <div class="panel-content">
+                    <label>Muelle</label>
                     <div class="color-grid">
                         <div class="color-dot" style="background:#ff0000" onclick="changeColor('Muelle', '#ff0000')"></div>
                         <div class="color-dot" style="background:#f1c40f" onclick="changeColor('Muelle', '#f1c40f')"></div>
-                        <div class="color-dot" style="background:#27ae60" onclick="changeColor('Muelle', '#27ae60')"></div>
                     </div>
                 </div>
-                <div class="control-item">
-                    <label>Cuerpo Suspensión</label>
+            </div>
+
+            <button class="accordion">Llantas</button>
+            <div class="panel">
+                <div class="panel-content">
+                    <label>Color</label>
                     <div class="color-grid">
-                        <div class="color-dot" style="background:#111" onclick="changeColor('Supension', '#111')"></div>
-                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Supension', '#bdc3c7')"></div>
+                        <div class="color-dot" style="background:#000" onclick="changeColor('Llantas', '#000')"></div>
+                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Llantas', '#bdc3c7')"></div>
+                    </div>
+                    <label>Acabado</label>
+                    <div style="display:flex; gap:10px;">
+                        <button class="btn-finish" onclick="setRoughness('Llantas', 0.05)">Cromo</button>
+                        <button class="btn-finish" onclick="setRoughness('Llantas', 0.9)">Mate</button>
                     </div>
                 </div>
             </div>
         </div>
-
-        <button class="accordion">Llantas y Acabados</button>
-        <div class="panel">
-            <div class="panel-content">
-                <label>Color de llanta</label>
-                <div class="color-grid">
-                    <div class="color-dot" style="background: #000" onclick="changeColor('Llantas', '#000')"></div>
-                    <div class="color-dot" style="background: #bdc3c7" onclick="changeColor('Llantas', '#bdc3c7')"></div>
-                </div>
-                <br>
-                <label>Efecto Material</label>
-                <div class="row">
-                    <button class="btn-finish" onclick="setRoughness('Llantas', 0.05)">Brillante</button>
-                    <button class="btn-finish" onclick="setRoughness('Llantas', 0.9)">Mate</button>
-                </div>
-            </div>
-        </div>
-
     </div>
 
 <script>
@@ -283,25 +237,23 @@
         document.getElementById('landing').classList.add('hidden');
     }
 
-    // Lógica de acordeones única para todos
+    // LÓGICA DE ACORDEÓN EXCLUSIVO (Solo uno abierto a la vez)
     const acc = document.getElementsByClassName("accordion");
+    
     for (let i = 0; i < acc.length; i++) {
         acc[i].addEventListener("click", function() {
-            // Cierra los demás paneles si quieres un comportamiento de "solo uno abierto"
-            /*
-            for (let j = 0; j < acc.length; j++) {
-                if (acc[j] !== this) {
-                    acc[j].classList.remove("active");
-                    acc[j].nextElementSibling.style.maxHeight = null;
-                }
-            }
-            */
-            
-            this.classList.toggle("active");
             const panel = this.nextElementSibling;
-            if (panel.style.maxHeight) {
-                panel.style.maxHeight = null;
-            } else {
+            const isActive = this.classList.contains("active");
+
+            // 1. Cerramos todos los paneles abiertos
+            for (let j = 0; j < acc.length; j++) {
+                acc[j].classList.remove("active");
+                acc[j].nextElementSibling.style.maxHeight = null;
+            }
+
+            // 2. Si el que clickamos no estaba activo, lo abrimos
+            if (!isActive) {
+                this.classList.add("active");
                 panel.style.maxHeight = panel.scrollHeight + "px";
             }
         });
@@ -309,18 +261,12 @@
 
     function changeColor(pieza, color) {
         const material = modelViewer.model.materials.find(m => m.name === pieza);
-        if (material) {
-            material.pbrMetallicRoughness.setBaseColorFactor(color);
-        } else {
-            console.warn("No se encontró el material: " + pieza);
-        }
+        if (material) material.pbrMetallicRoughness.setBaseColorFactor(color);
     }
 
     function setRoughness(pieza, valor) {
         const material = modelViewer.model.materials.find(m => m.name === pieza);
-        if (material) {
-            material.pbrMetallicRoughness.setRoughnessFactor(valor);
-        }
+        if (material) material.pbrMetallicRoughness.setRoughnessFactor(valor);
     }
 </script>
 </body>
