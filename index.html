@@ -115,9 +115,27 @@
 
         /* Grid de Colores */
         label { display: block; font-size: 0.65rem; color: #666; text-transform: uppercase; margin-bottom: 10px; font-weight: bold; }
-        .color-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 15px; }
-        .color-dot { aspect-ratio: 1/1; border-radius: 4px; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); transition: 0.2s; }
-        .color-dot:hover { transform: scale(1.15); border-color: white; }
+        .color-grid {
+            display: flex;       /* Alinea los círculos en fila */
+            gap: 10px;          /* Espacio entre círculos */
+            padding: 10px 0;
+        }
+        .color-dot {
+            width: 30px;         /* Ajusta el tamaño a tu gusto */
+            height: 30px;        /* Debe ser igual al ancho */
+            border-radius: 50%;  /* Esto es lo que hace que sea un círculo */
+            cursor: pointer;
+            display: inline-block;
+            margin: 5px;
+            border: 2px solid transparent; 
+            transition: transform 0.2s; /* Un toque extra para que se sienta fluido */
+        }
+
+        /* Opcional: un efecto cuando pasas el ratón por encima */
+        .color-dot:hover {
+            transform: scale(1.1);
+            border-color: #3498db;
+        }
 
         .btn-finish {
             flex: 1; background: #222; color: white; border: 1px solid #333;
