@@ -134,10 +134,23 @@
             font-weight: bold;
         }
 
-        .btn-finish:hover { background: var(--accent); }
-
-        .row { display: flex; justify-content: space-between; }
-
+        .row {
+            display: flex;
+            gap: 10px;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        
+        .btn-finish {
+            flex: 1;
+            background: #333;
+            color: white;
+            border: 1px solid #444;
+            padding: 8px;
+            cursor: pointer;
+            font-size: 10px;
+            text-transform: uppercase;
+        }
         /* Estilo del botón que abre el desplegable */
         .accordion {
             background-color: #1a1a1a;
@@ -171,11 +184,21 @@
         
         /* Contenedor del contenido (oculto por defecto) */
         .panel {
-            padding: 0 15px;
-            background-color: #111;
-            max-height: auto;
-            overflow: hidden;
-            transition: max-height 0.2s ease-out;
+            padding: 20px !important; /* Forzamos un espacio */
+            background: red !important; /* Si ves un cuadro rojo, el panel funciona */
+            max-height: none !important; 
+            overflow: visible !important;
+        }
+        
+        .panel label {
+            color: #888 !important; /* Gris claro para que se vea */
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .panel {
+            background-color: #111 !important;
+            color: white !important;
         }
     </style>
 </head>
@@ -358,6 +381,7 @@
     </script>
 </body>
 </html>
+
 
 
 
