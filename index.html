@@ -6,38 +6,107 @@
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
     
     <style>
-        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: #111; display: flex; height: 100vh; overflow: hidden; }
-        
-        /* Visor 3D a la izquierda */
-        model-viewer { flex: 1; height: 100%; background: radial-gradient(#444, #111); }
+        :root {
+            --accent: #ff4444; 
+            --bg: #0a0a0a;
+            --panel: rgba(30, 30, 30, 0.9);
+        }
 
-        /* Menú lateral a la derecha */
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: white;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Contenedor del Visor 3D */
+        .viewer-container {
+            flex: 1;
+            position: relative;
+        }
+
+        model-viewer {
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(#2c3e50, #000000);
+        }
+
+        /* Menú Lateral Derecho */
         .sidebar {
-            width: 300px;
-            background: #222;
-            border-left: 2px solid #333;
-            padding: 20px;
-            overflow-y: auto; /* Permite scroll si hay muchas piezas */
-            box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+            width: 320px;
+            background: var(--panel);
+            backdrop-filter: blur(15px);
+            border-left: 1px solid rgba(255,255,255,0.1);
+            padding: 25px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
         }
 
-        h2 { color: #fff; font-size: 1.2rem; border-bottom: 1px solid #444; padding-bottom: 10px; }
-        .control-group { margin-bottom: 20px; }
-        label { color: #aaa; display: block; margin-bottom: 8px; font-size: 0.9rem; text-transform: uppercase; }
-        
-        .color-grid { display: flex; gap: 8px; flex-wrap: wrap; }
-        
+        h2 {
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0 0 20px 0;
+            color: var(--accent);
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 10px;
+        }
+
+        .control-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.7rem;
+            color: #888;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        /* Rejilla de colores */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
         .color-dot {
-            width: 35px; height: 35px; border-radius: 50%; border: 2px solid transparent;
-            cursor: pointer; transition: 0.2s;
+            width: 100%;
+            aspect-ratio: 1/1;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 2px solid rgba(255,255,255,0.1);
+            transition: 0.2s;
         }
-        .color-dot:hover { transform: scale(1.1); border-color: white; }
 
-        /* Colores rápidos */
-        .red { background: #d32f2f; } .blue { background: #1976d2; }
-        .black { background: #111; } .silver { background: #bdc3c7; }
-        .gold { background: #f1c40f; } .white { background: #fff; }
-        .green { background: #27ae60; }
+        .color-dot:hover {
+            transform: scale(1.1);
+            border-color: white;
+        }
+
+        /* Estilos de botones de acabado */
+        .btn-finish {
+            background: #444;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 48%;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .btn-finish:hover { background: var(--accent); }
+
+        .row { display: flex; justify-content: space-between; }
     </style>
 </head>
 <body>
@@ -191,6 +260,7 @@
     </script>
 </body>
 </html>
+
 
 
 
