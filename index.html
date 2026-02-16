@@ -379,8 +379,32 @@
           });
         }
     </script>
+
+    <script>
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+    
+    for (i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function() {
+        /* Cambia entre añadir y quitar la clase "active" para resaltar el botón */
+        this.classList.toggle("active");
+    
+        /* Selecciona el panel que va justo después del botón */
+        var panel = this.nextElementSibling;
+        
+        if (panel.style.maxHeight) {
+          /* Si ya tiene una altura máxima, se la quitamos para que se cierre */
+          panel.style.maxHeight = null;
+        } else {
+          /* Si no tiene altura, calculamos el tamaño real del contenido (scrollHeight) y se lo asignamos */
+          panel.style.maxHeight = panel.scrollHeight + "px";
+        } 
+      });
+    }
+    </script>
 </body>
 </html>
+
 
 
 
