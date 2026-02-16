@@ -184,21 +184,21 @@
         
         /* Contenedor del contenido (oculto por defecto) */
         .panel {
-            padding: 20px !important; /* Forzamos un espacio */
-            background: red !important; /* Si ves un cuadro rojo, el panel funciona */
-            max-height: 0 !important; 
-            overflow: visible !important;
+            padding: 0 20 px; !important; /* Forzamos un espacio */
+            background-color: #111; /* Si ves un cuadro rojo, el panel funciona */
+            max-height: 0 ; 
+            overflow: hidden ;
         }
         
         .panel label {
-            color: #888 !important; /* Gris claro para que se vea */
+            color: #888 ; /* Gris claro para que se vea */
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 5 px;
         }
         
         .panel {
-            background-color: #111 !important;
-            color: white !important;
+            background-color: #111 ;
+            color: white ;
         }
     </style>
 </head>
@@ -284,15 +284,12 @@
                 <div class="color-dot" style="background: #000" onclick="changeColor('Llantas', '#000')"></div>
                 <div class="color-dot" style="background: #bdc3c7" onclick="changeColor('Llantas', '#bdc3c7')"></div>
             </div>
-        
             <br>
-        
             <label>Acabado</label>
             <div class="row">
                 <button class="btn-finish" onclick="setRoughness('Llantas', 0.05)">Cromo</button>
                 <button class="btn-finish" onclick="setRoughness('Llantas', 0.9)">Mate</button>
             </div>
-            
             <br> </div>
 
         <div class="control-group">
@@ -381,29 +378,32 @@
     </script>
 
     <script>
-    var acc = document.getElementsByClassName("accordion");
-    var i;
+    <script>
+    // Seleccionamos todos los botones de la clase accordion
+    const acc = document.getElementsByClassName("accordion");
     
-    for (i = 0; i < acc.length; i++) {
-      acc[i].addEventListener("click", function() {
-        /* Cambia entre añadir y quitar la clase "active" para resaltar el botón */
-        this.classList.toggle("active");
-    
-        /* Selecciona el panel que va justo después del botón */
-        var panel = this.nextElementSibling;
-        
-        if (panel.style.maxHeight) {
-          /* Si ya tiene una altura máxima, se la quitamos para que se cierre */
-          panel.style.maxHeight = null;
-        } else {
-          /* Si no tiene altura, calculamos el tamaño real del contenido (scrollHeight) y se lo asignamos */
-          panel.style.maxHeight = panel.scrollHeight + "px";
-        } 
-      });
+    for (let i = 0; i < acc.length; i++) {
+        acc[i].onclick = function() {
+            // Alternamos la clase 'active' para el estilo del botón
+            this.classList.toggle("active");
+            
+            // Seleccionamos el panel que está justo después del botón
+            const panel = this.nextElementSibling;
+            
+            // Si el panel ya está abierto (tiene altura)
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null; // Se cierra
+            } else {
+                // Si está cerrado, le damos la altura total de su contenido
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            }
+        };
     }
+</script>
     </script>
 </body>
 </html>
+
 
 
 
