@@ -333,10 +333,10 @@
     
 
 <script>
-    // 1. CONFIGURACIÓN DEL MODELO
+    // 1. CONFIGURACIÓN DEL VISOR
     const modelViewer = document.querySelector('#moto-3d');
 
-    // 2. FUNCIÓN PARA COMENZAR (LANDING)
+    // 2. LÓGICA DE LA LANDING (Pantalla de inicio)
     function startApp() {
         const landing = document.getElementById('landing');
         if (landing) {
@@ -345,34 +345,34 @@
     }
 
     // 3. LÓGICA DE LOS DESPLEGABLES (ACORDEONES)
-    // Usamos una sola declaración para evitar el error "already been declared"
+    // Definimos 'acc' UNA SOLA VEZ para evitar errores
     const acc = document.getElementsByClassName("accordion");
     
     for (let i = 0; i < acc.length; i++) {
         acc[i].onclick = function() {
-            // Activa/Desactiva la clase para el estilo del botón
+            // Cambia el estilo del botón (el símbolo + o -)
             this.classList.toggle("active");
             
             // Encuentra el panel que va justo después del botón
             const panel = this.nextElementSibling;
             
             if (panel.style.maxHeight) {
-                // Si está abierto, lo cerramos
+                // Si ya está abierto, lo cerramos
                 panel.style.maxHeight = null;
             } else {
-                // Si está cerrado, calculamos su altura real para abrirlo suavemente
+                // Si está cerrado, le damos la altura real de su contenido
                 panel.style.maxHeight = panel.scrollHeight + "px";
             }
         };
     }
 
-    // 4. FUNCIONES DE PERSONALIZACIÓN
+    // 4. FUNCIONES DE CAMBIO DE COLOR Y ACABADO
     function changeColor(pieza, color) {
         const material = modelViewer.model.materials.find(m => m.name === pieza);
         if (material) {
             material.pbrMetallicRoughness.setBaseColorFactor(color);
         } else {
-            console.log("No se encontró el material: " + pieza);
+            console.warn("No encontré la pieza: " + pieza);
         }
     }
 
@@ -385,6 +385,7 @@
 </script>
 </body>
 </html>
+
 
 
 
