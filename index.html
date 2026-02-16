@@ -21,6 +21,36 @@
             height: 100vh;
             overflow: hidden;
         }
+        /* Pantalla de inicio */
+    #landing {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                    url('https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=80&w=2070'); 
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 100; /* Por encima de todo */
+        transition: transform 0.8s cubic-bezier(0.87, 0, 0.13, 1);
+    }
+    
+    /* El botón de entrar */
+    .btn-configurar {
+        padding: 15px 40px;
+        background: #ff4444;
+        color: white;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+/* Clase para que la pantalla suba como una persiana */
+.hidden { transform: translateY(-100%); }
 
         /* Contenedor del Visor 3D */
         .viewer-container {
@@ -110,6 +140,11 @@
     </style>
 </head>
 <body>
+    <section id="landing">
+        <h1>NOMBRE DE TU EMPRESA</h1>
+        <p>MODIFICACIONES CAFE RACER</p>
+        <button class="btn-configurar" onclick="startApp()">Configurar Moto</button>
+    </section>
 
     <model-viewer id="moto-3d" 
         src="BMWK100.glb?v=3" 
@@ -249,6 +284,11 @@
     <script>
         const modelViewer = document.querySelector('#moto-3d');
 
+        function startApp() {
+        // Busca la pantalla de inicio y le añade la clase 'hidden' para que suba
+        document.getElementById('landing').classList.add('hidden');
+        }
+
         function changeColor(pieza, color) {
             const material = modelViewer.model.materials.find(m => m.name === pieza);
             if (material) {
@@ -260,6 +300,7 @@
     </script>
 </body>
 </html>
+
 
 
 
