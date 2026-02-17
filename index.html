@@ -8,7 +8,7 @@
     
     <style>
         :root {
-            --accent: #ff4444; 
+            --accent: #0022fc; 
             --bg: #0a0a0a;
             --panel-bg: #ffffff;
             --border: rgba(0, 122, 255, 0.08);
@@ -50,7 +50,7 @@
 
         /* Sidebar con Scroll Mejorado */
         .sidebar {
-            width: 320px;
+            width: 450px;
             background: var(--panel-bg);
             border-left: 1px solid var(--border);
             display: flex;
@@ -76,7 +76,7 @@
         /* Estilos Acordeón */
         .accordion {
             background-color: transparent;
-            color: #1129c2;
+            color: #0022fc;
             cursor: pointer;
             padding: 18px 25px;
             width: 100%;
@@ -92,7 +92,7 @@
             align-items: center;
         }
 
-        .accordion:hover { background-color: #1129c2; color: white; }
+        .accordion:hover { background-color: #0022fc; color: white; }
         
         .accordion:after {
             content: '\002B';
@@ -101,29 +101,40 @@
             transition: 0.3s;
         }
 
-        .active { background-color: #1a1a1a; color: white; border-bottom: 1px solid var(--accent); }
+        .active { background-color: #182466; color: white; border-bottom: 1px solid var(--accent); }
         .active:after { content: "\2212"; transform: rotate(180deg); }
 
         .panel {
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease-in-out;
-            background-color: #0d0d0d;
+            background-color: #ffffff;
+            
         }
 
         .panel-content { padding: 20px 25px; }
 
         /* Grid de Colores */
-        label { display: block; font-size: 0.65rem; color: #666; text-transform: uppercase; margin-bottom: 10px; font-weight: bold; }
+        label { display: block; font-size: 0.65rem; color: #0022fc; text-transform: uppercase; margin-bottom: 10px; font-weight: bold; }
         .color-grid {
             display: flex;       /* Alinea los círculos en fila */
-            gap: 10px;          /* Espacio entre círculos */
+            gap: 15px;          /* Espacio entre círculos */
             padding: 10px 0;
-        }
+            padding-bottom: 15px;
+        }   
+
+        /* Circulos de colores*/
         .color-dot {
-            width: 30px;         /* Ajusta el tamaño a tu gusto */
-            height: 30px;        /* Debe ser igual al ancho */
+            width: 50px;         /* Ajusta el tamaño a tu gusto */
+            height: 50px;        /* Debe ser igual al ancho */
             border-radius: 50%;  /* Esto es lo que hace que sea un círculo */
+            /* Sombra exterior para que flote y sombra interior para dar volumen */
+            box-shadow: 
+                0 10px 20px rgba(0,0,0,0.3),    /* Sombra en el suelo */
+                inset 0 -10px 15px rgba(0,0,0,0.2), /* Sombra interna abajo (volumen) */
+                inset 0 10px 15px rgba(255,255,255,0.3); /* Brillo arriba (luz) */
+            /*background: radial-gradient(circle at 30% 30%, #ff6b6b, #e63946);
+            filter: contrast(120%) brightness(90%);*/
             cursor: pointer;
             display: inline-block;
             margin: 5px;
@@ -145,6 +156,13 @@
 
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-thumb { background: var(--accent); }
+
+        .contenedor-acabados {
+            display: flex;
+            gap: 10px;            /* Espacio entre botones */
+            margin-top: 15px;     /* Espacio respecto al label de arriba */
+            margin-bottom: 15px;  /* ESTO es lo que separa del Guardabarros */
+        }
     </style>
 </head>
 <body>
@@ -167,16 +185,73 @@
                 <div class="panel-content">
                     <label>Depósito</label>
                     <div class="color-grid">
-                        <div class="color-dot" style="background:#d32f2f" onclick="changeColor('Tanque', '#d32f2f')"></div>
+                        <div class="color-dot" style="background:#494444" onclick="changeColor('Tanque', '#494444')"></div>
                         <div class="color-dot" style="background:#111" onclick="changeColor('Tanque', '#111')"></div>
                         <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Tanque', '#bdc3c7')"></div>
-                        <div class="color-dot" style="background:#1976d2" onclick="changeColor('Tanque', '#1976d2')"></div>
+                        <div class="color-dot" style="background:#01073a" onclick="changeColor('Tanque', '#01073a')"></div>
+                        <div class="color-dot" style="background:#013a14" onclick="changeColor('Tanque', '#013a14')"></div>
+                    </div>
+                    <label>Acabado Depósito</label>
+                    <div class="contenedor-acabados">
+                        <button class="btn-finish" onclick="setRoughness('Tanque', 0.5)">Normal</button>
+                        <button class="btn-finish" onclick="setRoughness('Tanque', 0.05)">Cromo</button>
+                        <button class="btn-finish" onclick="setRoughness('Tanque', 0.9)">Mate</button>
                     </div>
                     <label>Guardabarros</label>
                     <div class="color-grid">
-                        <div class="color-dot" style="background:#d32f2f" onclick="changeColor('Guardabarros', '#d32f2f')"></div>
+                        <div class="color-dot" style="background:#494444" onclick="changeColor('Guardabarros', '#494444')"></div>
                         <div class="color-dot" style="background:#111" onclick="changeColor('Guardabarros', '#111')"></div>
+                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Guardabarros', '#bdc3c7')"></div>
+                        <div class="color-dot" style="background:#01073a" onclick="changeColor('Guardabarros', '#01073a')"></div>
+                        <div class="color-dot" style="background:#013a14" onclick="changeColor('Guardabarros', '#013a14')"></div>
                     </div>
+                    <label>Acabado Guardabarros</label>
+                    <div class="contenedor-acabados">
+                        <button class="btn-finish" onclick="setRoughness('Guardabarros', 0.5)">Normal</button>
+                        <button class="btn-finish" onclick="setRoughness('Guardabarros', 0.05)">Cromo</button>
+                        <button class="btn-finish" onclick="setRoughness('Guardabarros', 0.9)">Mate</button>
+                    </div>
+                    <label>Colin</label>
+                    <div class="color-grid">
+                        <div class="color-dot" style="background:#494444" onclick="changeColor('Colin', '#494444')"></div>
+                        <div class="color-dot" style="background:#111" onclick="changeColor('Colin', '#111')"></div>
+                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Colin', '#bdc3c7')"></div>
+                        <div class="color-dot" style="background:#01073a" onclick="changeColor('Colin', '#01073a')"></div>
+                        <div class="color-dot" style="background:#013a14" onclick="changeColor('Colin', '#013a14')"></div>
+                    </div>
+                    <label>Acabado Colin</label>
+                    <div class="contenedor-acabados">
+                        <button class="btn-finish" onclick="setRoughness('Colin', 0.5)">Normal</button>
+                        <button class="btn-finish" onclick="setRoughness('Colin', 0.05)">Cromo</button>
+                        <button class="btn-finish" onclick="setRoughness('Colin', 0.9)">Mate</button>
+                    </div>
+                    <label>Carcasa de Faro</label>
+                    <div class="color-grid">
+                        <div class="color-dot" style="background:#494444" onclick="changeColor('Luz', '#494444')"></div>
+                        <div class="color-dot" style="background:#111" onclick="changeColor('Luz', '#111')"></div>
+                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Luz', '#bdc3c7')"></div>
+                        <div class="color-dot" style="background:#01073a" onclick="changeColor('Luz', '#01073a')"></div>
+                        <div class="color-dot" style="background:#013a14" onclick="changeColor('Luz', '#013a14')"></div>
+                    </div>
+                    <label>Acabado</label>
+                    <div class="contenedor-acabados">
+                        <button class="btn-finish" onclick="setRoughness('Luz', 0.5)">Normal</button>
+                        <button class="btn-finish" onclick="setRoughness('Luz', 0.05)">Cromo</button>
+                        <button class="btn-finish" onclick="setRoughness('Luz', 0.9)">Mate</button>
+                    </div>
+                </div>
+            </div>
+
+            <button class="accordion">Asiento</button>
+            <div class="panel">
+                <div class="panel-content">
+                    <label>Color Asiento</label>
+                    <div class="color-grid">
+                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Asiento', '#bdc3c7')"></div>
+                        <div class="color-dot" style="background:#713610" onclick="changeColor('Asiento', '#713610')"></div>
+                        <div class="color-dot" style="background:#000" onclick="changeColor('Asiento', '#000')"></div>
+                    </div>
+                    
                 </div>
             </div>
 
@@ -186,23 +261,27 @@
                     <label>Chasis</label>
                     <div class="color-grid">
                         <div class="color-dot" style="background:#111" onclick="changeColor('Chasis', '#111')"></div>
-                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Chasis', '#bdc3c7')"></div>
+                        <div class="color-dot" style="background:#e5e9ec" onclick="changeColor('Chasis', '#e5e9ec')"></div>
+                        <div class="color-dot" style="background:#8d8d8d" onclick="changeColor('Chasis', '#8d8d8d')"></div>
                     </div>
+                    <label>Acabado Chasis</label>
+                    <div class="contenedor-acabados">
+                        <button class="btn-finish" onclick="setRoughness('Chasis', 0.5)">Normal</button>
+                        <button class="btn-finish" onclick="setRoughness('Chasis', 0.05)">Cromo</button>
+                        <button class="btn-finish" onclick="setRoughness('Chasis', 0.9)">Mate</button>
+                    </div>
+                    
                     <label>Motor</label>
                     <div class="color-grid">
                         <div class="color-dot" style="background:#111" onclick="changeColor('Motor', '#111')"></div>
-                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Motor', '#bdc3c7')"></div>
+                        <div class="color-dot" style="background:#383838" onclick="changeColor('Motor', '#383838')"></div>
+                        <div class="color-dot" style="background:#8d8d8d" onclick="changeColor('Motor', '#8d8d8d')"></div>
                     </div>
-                </div>
-            </div>
-
-            <button class="accordion">Iluminación</button>
-            <div class="panel">
-                <div class="panel-content">
-                    <label>Carcasa de Faro</label>
-                    <div class="color-grid">
-                        <div class="color-dot" style="background:#111" onclick="changeColor('Luz', '#111')"></div>
-                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Luz', '#bdc3c7')"></div>
+                    <label>Acabado Motor</label>
+                    <div class="contenedor-acabados">
+                        <button class="btn-finish" onclick="setRoughness('Motor', 0.5)">Normal</button>
+                        <button class="btn-finish" onclick="setRoughness('Motor', 0.05)">Cromo</button>
+                        <button class="btn-finish" onclick="setRoughness('Motor', 0.9)">Mate</button>
                     </div>
                 </div>
             </div>
@@ -213,8 +292,26 @@
                     <label>Horquillas</label>
                     <div class="color-grid">
                         <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Horquillas', '#bdc3c7')"></div>
-                        <div class="color-dot" style="background:#d4af37" onclick="changeColor('Horquillas', '#d4af37')"></div>
+                        <div class="color-dot" style="background:#B1B52E" onclick="changeColor('Horquillas', '#B1B52E')"></div>
                         <div class="color-dot" style="background:#111" onclick="changeColor('Horquillas', '#111')"></div>
+                    </div>
+                    <label>Acabado Horquillas</label>
+                    <div class="contenedor-acabados">
+                        <button class="btn-finish" onclick="setRoughness('Horquillas', 0.5)">Normal</button>
+                        <button class="btn-finish" onclick="setRoughness('Horquillas', 0.05)">Cromo</button>
+                        <button class="btn-finish" onclick="setRoughness('Horquillas', 0.9)">Mate</button>
+                    </div>
+                    <label>Tija</label>
+                    <div class="color-grid">
+                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Tija', '#bdc3c7')"></div>
+                        <div class="color-dot" style="background:#B1B52E" onclick="changeColor('Tija', '#B1B52E')"></div>
+                        <div class="color-dot" style="background:#111" onclick="changeColor('Tija', '#111')"></div>
+                    </div>
+                    <label>Acabado Tija</label>
+                    <div class="contenedor-acabados">
+                        <button class="btn-finish" onclick="setRoughness('Tija', 0.5)">Normal</button>
+                        <button class="btn-finish" onclick="setRoughness('Tija', 0.05)">Cromo</button>
+                        <button class="btn-finish" onclick="setRoughness('Tija', 0.9)">Mate</button>
                     </div>
                 </div>
             </div>
@@ -226,6 +323,23 @@
                     <div class="color-grid">
                         <div class="color-dot" style="background:#ff0000" onclick="changeColor('Muelle', '#ff0000')"></div>
                         <div class="color-dot" style="background:#f1c40f" onclick="changeColor('Muelle', '#f1c40f')"></div>
+                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Muelle', '#bdc3c7')"></div>
+                        <div class="color-dot" style="background:#01073a" onclick="changeColor('Muelle', '#01073a')"></div>
+                        <div class="color-dot" style="background:#013a14" onclick="changeColor('Muelle', '#013a14')"></div>
+                    </div>
+                    <label>Piston</label>
+                    <div class="color-grid">
+                         <div class="color-dot" style="background:#494444" onclick="changeColor('Suspension', '#494444')"></div>
+                        <div class="color-dot" style="background:#111" onclick="changeColor('Suspension', '#111')"></div>
+                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Suspension', '#bdc3c7')"></div>
+                        <div class="color-dot" style="background:#01073a" onclick="changeColor('Suspension', '#01073a')"></div>
+                        <div class="color-dot" style="background:#013a14" onclick="changeColor('Suspension', '#013a14')"></div>
+                    </div>
+                    <label>Acabado Piston</label>
+                    <div class="contenedor-acabados">
+                        <button class="btn-finish" onclick="setRoughness('Suspension', 0.5)">Normal</button>
+                        <button class="btn-finish" onclick="setRoughness('Suspension', 0.05)">Cromo</button>
+                        <button class="btn-finish" onclick="setRoughness('Suspension', 0.9)">Mate</button>
                     </div>
                 </div>
             </div>
@@ -233,13 +347,15 @@
             <button class="accordion">Llantas</button>
             <div class="panel">
                 <div class="panel-content">
-                    <label>Color</label>
+                    <label>Llantas</label>
                     <div class="color-grid">
-                        <div class="color-dot" style="background:#000" onclick="changeColor('Llantas', '#000')"></div>
                         <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Llantas', '#bdc3c7')"></div>
+                        <div class="color-dot" style="background:#B1B52E" onclick="changeColor('Llantas', '#B1B52E')"></div>
+                        <div class="color-dot" style="background:#000" onclick="changeColor('Llantas', '#000')"></div>
                     </div>
                     <label>Acabado</label>
-                    <div style="display:flex; gap:10px;">
+                    <div class="contenedor-acabados">
+                        <button class="btn-finish" onclick="setRoughness('Tanque', 0.5)">Normal</button>
                         <button class="btn-finish" onclick="setRoughness('Llantas', 0.05)">Cromo</button>
                         <button class="btn-finish" onclick="setRoughness('Llantas', 0.9)">Mate</button>
                     </div>
@@ -321,7 +437,7 @@ function toggleTacometro(tipo) {
             if (tipo === 'analogico') {
                 if (mat.name === "Tacometro_Analogico") {
                     mat.setAlphaMode("OPAQUE");
-                    mat.pbrMetallicRoughness.setBaseColorFactor([1, 1, 1, 1]);
+                    mat.pbrMetallicRoughness.setBaseColorFactor([0.05, 0.05, 0.05, 1]);
                 } else {
                     // Ocultamos el digital
                     mat.setAlphaMode("BLEND");
@@ -330,7 +446,7 @@ function toggleTacometro(tipo) {
             } else {
                 if (mat.name === "Tacometro_Digital") {
                     mat.setAlphaMode("OPAQUE");
-                    mat.pbrMetallicRoughness.setBaseColorFactor([1, 1, 1, 1]);
+                    mat.pbrMetallicRoughness.setBaseColorFactor([0.05, 0.05, 0.05, 1]);
                 } else {
                     // Ocultamos el analógico
                     mat.setAlphaMode("BLEND");
@@ -344,10 +460,11 @@ function toggleTacometro(tipo) {
     document.getElementById('btn-analog').style.borderColor = (tipo === 'analogico') ? 'var(--accent)' : '#333';
     document.getElementById('btn-digital').style.borderColor = (tipo === 'digital') ? 'var(--accent)' : '#333';
 }
+
+
 </script>
 </body>
 </html>
-
 
 
 
