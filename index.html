@@ -163,6 +163,13 @@
             margin-top: 15px;     /* Espacio respecto al label de arriba */
             margin-bottom: 15px;  /* ESTO es lo que separa del Guardabarros */
         }
+
+        /* Clase para resaltar el botón seleccionado */
+        .selected-option {
+            border: 2px solid var(--accent) !important;
+            transform: scale(1.1);
+            box-shadow: 0 0 10px var(--accent);
+        }
     </style>
 </head>
 <body>
@@ -185,59 +192,59 @@
                 <div class="panel-content">
                     <label>Depósito</label>
                     <div class="color-grid">
-                        <div class="color-dot" style="background:#494444" onclick="changeColor('Tanque', '#494444')"></div>
-                        <div class="color-dot" style="background:#111" onclick="changeColor('Tanque', '#111')"></div>
-                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Tanque', '#bdc3c7')"></div>
-                        <div class="color-dot" style="background:#01073a" onclick="changeColor('Tanque', '#01073a')"></div>
-                        <div class="color-dot" style="background:#013a14" onclick="changeColor('Tanque', '#013a14')"></div>
+                        <div class="color-dot" style="background:#494444" onclick="changeColor('Tanque', '#494444',event)"></div>
+                        <div class="color-dot" style="background:#111" onclick="changeColor('Tanque', '#111',event)"></div>
+                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Tanque', '#bdc3c7',event)"></div>
+                        <div class="color-dot" style="background:#01073a" onclick="changeColor('Tanque', '#01073a',event)"></div>
+                        <div class="color-dot" style="background:#013a14" onclick="changeColor('Tanque', '#013a14',event)"></div>
                     </div>
                     <label>Acabado Depósito</label>
                     <div class="contenedor-acabados">
-                        <button class="btn-finish" onclick="setRoughness('Tanque', 0.5)">Normal</button>
-                        <button class="btn-finish" onclick="setRoughness('Tanque', 0.05)">Cromo</button>
-                        <button class="btn-finish" onclick="setRoughness('Tanque', 0.9)">Mate</button>
+                        <button class="btn-finish" onclick="setRoughness('Tanque', 0.5,event)">Normal</button>
+                        <button class="btn-finish" onclick="setRoughness('Tanque', 0.05,event)">Cromo</button>
+                        <button class="btn-finish" onclick="setRoughness('Tanque', 0.9,event)">Mate</button>
                     </div>
                     <label>Guardabarros</label>
                     <div class="color-grid">
-                        <div class="color-dot" style="background:#494444" onclick="changeColor('Guardabarros', '#494444')"></div>
-                        <div class="color-dot" style="background:#111" onclick="changeColor('Guardabarros', '#111')"></div>
-                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Guardabarros', '#bdc3c7')"></div>
-                        <div class="color-dot" style="background:#01073a" onclick="changeColor('Guardabarros', '#01073a')"></div>
-                        <div class="color-dot" style="background:#013a14" onclick="changeColor('Guardabarros', '#013a14')"></div>
+                        <div class="color-dot" style="background:#494444" onclick="changeColor('Guardabarros', '#494444',event)"></div>
+                        <div class="color-dot" style="background:#111" onclick="changeColor('Guardabarros', '#111',event)"></div>
+                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Guardabarros', '#bdc3c7',event)"></div>
+                        <div class="color-dot" style="background:#01073a" onclick="changeColor('Guardabarros', '#01073a',event)"></div>
+                        <div class="color-dot" style="background:#013a14" onclick="changeColor('Guardabarros', '#013a14',event)"></div>
                     </div>
                     <label>Acabado Guardabarros</label>
                     <div class="contenedor-acabados">
-                        <button class="btn-finish" onclick="setRoughness('Guardabarros', 0.5)">Normal</button>
-                        <button class="btn-finish" onclick="setRoughness('Guardabarros', 0.05)">Cromo</button>
-                        <button class="btn-finish" onclick="setRoughness('Guardabarros', 0.9)">Mate</button>
+                        <button class="btn-finish" onclick="setRoughness('Guardabarros', 0.5,event)">Normal</button>
+                        <button class="btn-finish" onclick="setRoughness('Guardabarros', 0.05,event)">Cromo</button>
+                        <button class="btn-finish" onclick="setRoughness('Guardabarros', 0.9,event)">Mate</button>
                     </div>
                     <label>Colin</label>
                     <div class="color-grid">
-                        <div class="color-dot" style="background:#494444" onclick="changeColor('Colin', '#494444')"></div>
-                        <div class="color-dot" style="background:#111" onclick="changeColor('Colin', '#111')"></div>
-                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Colin', '#bdc3c7')"></div>
-                        <div class="color-dot" style="background:#01073a" onclick="changeColor('Colin', '#01073a')"></div>
-                        <div class="color-dot" style="background:#013a14" onclick="changeColor('Colin', '#013a14')"></div>
+                        <div class="color-dot" style="background:#494444" onclick="changeColor('Colin', '#494444',event)"></div>
+                        <div class="color-dot" style="background:#111" onclick="changeColor('Colin', '#111',event)"></div>
+                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Colin', '#bdc3c7',event)"></div>
+                        <div class="color-dot" style="background:#01073a" onclick="changeColor('Colin', '#01073a',event)"></div>
+                        <div class="color-dot" style="background:#013a14" onclick="changeColor('Colin', '#013a14',event)"></div>
                     </div>
                     <label>Acabado Colin</label>
                     <div class="contenedor-acabados">
-                        <button class="btn-finish" onclick="setRoughness('Colin', 0.5)">Normal</button>
-                        <button class="btn-finish" onclick="setRoughness('Colin', 0.05)">Cromo</button>
-                        <button class="btn-finish" onclick="setRoughness('Colin', 0.9)">Mate</button>
+                        <button class="btn-finish" onclick="setRoughness('Colin', 0.5,event)">Normal</button>
+                        <button class="btn-finish" onclick="setRoughness('Colin', 0.05,event)">Cromo</button>
+                        <button class="btn-finish" onclick="setRoughness('Colin', 0.9,event)">Mate</button>
                     </div>
                     <label>Carcasa de Faro</label>
                     <div class="color-grid">
-                        <div class="color-dot" style="background:#494444" onclick="changeColor('Luz', '#494444')"></div>
-                        <div class="color-dot" style="background:#111" onclick="changeColor('Luz', '#111')"></div>
-                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Luz', '#bdc3c7')"></div>
-                        <div class="color-dot" style="background:#01073a" onclick="changeColor('Luz', '#01073a')"></div>
-                        <div class="color-dot" style="background:#013a14" onclick="changeColor('Luz', '#013a14')"></div>
+                        <div class="color-dot" style="background:#494444" onclick="changeColor('Luz', '#494444',event)"></div>
+                        <div class="color-dot" style="background:#111" onclick="changeColor('Luz', '#111',event)"></div>
+                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Luz', '#bdc3c7',event)"></div>
+                        <div class="color-dot" style="background:#01073a" onclick="changeColor('Luz', '#01073a',event)"></div>
+                        <div class="color-dot" style="background:#013a14" onclick="changeColor('Luz', '#013a14',event)"></div>
                     </div>
                     <label>Acabado</label>
                     <div class="contenedor-acabados">
-                        <button class="btn-finish" onclick="setRoughness('Luz', 0.5)">Normal</button>
-                        <button class="btn-finish" onclick="setRoughness('Luz', 0.05)">Cromo</button>
-                        <button class="btn-finish" onclick="setRoughness('Luz', 0.9)">Mate</button>
+                        <button class="btn-finish" onclick="setRoughness('Luz', 0.5,event)">Normal</button>
+                        <button class="btn-finish" onclick="setRoughness('Luz', 0.05,event)">Cromo</button>
+                        <button class="btn-finish" onclick="setRoughness('Luz', 0.9,event)">Mate</button>
                     </div>
                 </div>
             </div>
@@ -247,9 +254,9 @@
                 <div class="panel-content">
                     <label>Color Asiento</label>
                     <div class="color-grid">
-                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Asiento', '#bdc3c7')"></div>
-                        <div class="color-dot" style="background:#713610" onclick="changeColor('Asiento', '#713610')"></div>
-                        <div class="color-dot" style="background:#000" onclick="changeColor('Asiento', '#000')"></div>
+                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Asiento', '#bdc3c7',event)"></div>
+                        <div class="color-dot" style="background:#713610" onclick="changeColor('Asiento', '#713610',event)"></div>
+                        <div class="color-dot" style="background:#000" onclick="changeColor('Asiento', '#000',event)"></div>
                     </div>
                     
                 </div>
@@ -260,28 +267,28 @@
                 <div class="panel-content">
                     <label>Chasis</label>
                     <div class="color-grid">
-                        <div class="color-dot" style="background:#111" onclick="changeColor('Chasis', '#111')"></div>
-                        <div class="color-dot" style="background:#e5e9ec" onclick="changeColor('Chasis', '#e5e9ec')"></div>
-                        <div class="color-dot" style="background:#8d8d8d" onclick="changeColor('Chasis', '#8d8d8d')"></div>
+                        <div class="color-dot" style="background:#111" onclick="changeColor('Chasis', '#111',event)"></div>
+                        <div class="color-dot" style="background:#e5e9ec" onclick="changeColor('Chasis', '#e5e9ec',event)"></div>
+                        <div class="color-dot" style="background:#8d8d8d" onclick="changeColor('Chasis', '#8d8d8d',event)"></div>
                     </div>
                     <label>Acabado Chasis</label>
                     <div class="contenedor-acabados">
-                        <button class="btn-finish" onclick="setRoughness('Chasis', 0.5)">Normal</button>
-                        <button class="btn-finish" onclick="setRoughness('Chasis', 0.05)">Cromo</button>
-                        <button class="btn-finish" onclick="setRoughness('Chasis', 0.9)">Mate</button>
+                        <button class="btn-finish" onclick="setRoughness('Chasis', 0.5,event)">Normal</button>
+                        <button class="btn-finish" onclick="setRoughness('Chasis', 0.05,event)">Cromo</button>
+                        <button class="btn-finish" onclick="setRoughness('Chasis', 0.9,event)">Mate</button>
                     </div>
                     
                     <label>Motor</label>
                     <div class="color-grid">
-                        <div class="color-dot" style="background:#111" onclick="changeColor('Motor', '#111')"></div>
-                        <div class="color-dot" style="background:#383838" onclick="changeColor('Motor', '#383838')"></div>
-                        <div class="color-dot" style="background:#8d8d8d" onclick="changeColor('Motor', '#8d8d8d')"></div>
+                        <div class="color-dot" style="background:#111" onclick="changeColor('Motor', '#111',event)"></div>
+                        <div class="color-dot" style="background:#383838" onclick="changeColor('Motor', '#383838',event)"></div>
+                        <div class="color-dot" style="background:#8d8d8d" onclick="changeColor('Motor', '#8d8d8d',event)"></div>
                     </div>
                     <label>Acabado Motor</label>
                     <div class="contenedor-acabados">
-                        <button class="btn-finish" onclick="setRoughness('Motor', 0.5)">Normal</button>
-                        <button class="btn-finish" onclick="setRoughness('Motor', 0.05)">Cromo</button>
-                        <button class="btn-finish" onclick="setRoughness('Motor', 0.9)">Mate</button>
+                        <button class="btn-finish" onclick="setRoughness('Motor', 0.5,event)">Normal</button>
+                        <button class="btn-finish" onclick="setRoughness('Motor', 0.05,event)">Cromo</button>
+                        <button class="btn-finish" onclick="setRoughness('Motor', 0.9,event)">Mate</button>
                     </div>
                 </div>
             </div>
@@ -291,27 +298,27 @@
                 <div class="panel-content">
                     <label>Horquillas</label>
                     <div class="color-grid">
-                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Horquillas', '#bdc3c7')"></div>
-                        <div class="color-dot" style="background:#B1B52E" onclick="changeColor('Horquillas', '#B1B52E')"></div>
-                        <div class="color-dot" style="background:#111" onclick="changeColor('Horquillas', '#111')"></div>
+                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Horquillas', '#bdc3c7',event)"></div>
+                        <div class="color-dot" style="background:#B1B52E" onclick="changeColor('Horquillas', '#B1B52E',event)"></div>
+                        <div class="color-dot" style="background:#111" onclick="changeColor('Horquillas', '#111',event)"></div>
                     </div>
                     <label>Acabado Horquillas</label>
                     <div class="contenedor-acabados">
-                        <button class="btn-finish" onclick="setRoughness('Horquillas', 0.5)">Normal</button>
-                        <button class="btn-finish" onclick="setRoughness('Horquillas', 0.05)">Cromo</button>
-                        <button class="btn-finish" onclick="setRoughness('Horquillas', 0.9)">Mate</button>
+                        <button class="btn-finish" onclick="setRoughness('Horquillas', 0.5,event)">Normal</button>
+                        <button class="btn-finish" onclick="setRoughness('Horquillas', 0.05,event)">Cromo</button>
+                        <button class="btn-finish" onclick="setRoughness('Horquillas', 0.9,event)">Mate</button>
                     </div>
                     <label>Tija</label>
                     <div class="color-grid">
-                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Tija', '#bdc3c7')"></div>
-                        <div class="color-dot" style="background:#B1B52E" onclick="changeColor('Tija', '#B1B52E')"></div>
-                        <div class="color-dot" style="background:#111" onclick="changeColor('Tija', '#111')"></div>
+                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Tija', '#bdc3c7',event)"></div>
+                        <div class="color-dot" style="background:#B1B52E" onclick="changeColor('Tija', '#B1B52E',event)"></div>
+                        <div class="color-dot" style="background:#111" onclick="changeColor('Tija', '#111',event)"></div>
                     </div>
                     <label>Acabado Tija</label>
                     <div class="contenedor-acabados">
-                        <button class="btn-finish" onclick="setRoughness('Tija', 0.5)">Normal</button>
-                        <button class="btn-finish" onclick="setRoughness('Tija', 0.05)">Cromo</button>
-                        <button class="btn-finish" onclick="setRoughness('Tija', 0.9)">Mate</button>
+                        <button class="btn-finish" onclick="setRoughness('Tija', 0.5,event)">Normal</button>
+                        <button class="btn-finish" onclick="setRoughness('Tija', 0.05,event)">Cromo</button>
+                        <button class="btn-finish" onclick="setRoughness('Tija', 0.9,event)">Mate</button>
                     </div>
                 </div>
             </div>
@@ -321,25 +328,25 @@
                 <div class="panel-content">
                     <label>Muelle</label>
                     <div class="color-grid">
-                        <div class="color-dot" style="background:#ff0000" onclick="changeColor('Muelle', '#ff0000')"></div>
-                        <div class="color-dot" style="background:#f1c40f" onclick="changeColor('Muelle', '#f1c40f')"></div>
-                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Muelle', '#bdc3c7')"></div>
-                        <div class="color-dot" style="background:#01073a" onclick="changeColor('Muelle', '#01073a')"></div>
-                        <div class="color-dot" style="background:#013a14" onclick="changeColor('Muelle', '#013a14')"></div>
+                        <div class="color-dot" style="background:#ff0000" onclick="changeColor('Muelle', '#ff0000',event)"></div>
+                        <div class="color-dot" style="background:#f1c40f" onclick="changeColor('Muelle', '#f1c40f',event)"></div>
+                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Muelle', '#bdc3c7',event)"></div>
+                        <div class="color-dot" style="background:#01073a" onclick="changeColor('Muelle', '#01073a',event)"></div>
+                        <div class="color-dot" style="background:#013a14" onclick="changeColor('Muelle', '#013a14',event)"></div>
                     </div>
                     <label>Piston</label>
                     <div class="color-grid">
-                         <div class="color-dot" style="background:#494444" onclick="changeColor('Suspension', '#494444')"></div>
-                        <div class="color-dot" style="background:#111" onclick="changeColor('Suspension', '#111')"></div>
-                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Suspension', '#bdc3c7')"></div>
-                        <div class="color-dot" style="background:#01073a" onclick="changeColor('Suspension', '#01073a')"></div>
-                        <div class="color-dot" style="background:#013a14" onclick="changeColor('Suspension', '#013a14')"></div>
+                        <div class="color-dot" style="background:#494444" onclick="changeColor('Suspension', '#494444',event)"></div>
+                        <div class="color-dot" style="background:#111" onclick="changeColor('Suspension', '#111',event)"></div>
+                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Suspension', '#bdc3c7',event)"></div>
+                        <div class="color-dot" style="background:#01073a" onclick="changeColor('Suspension', '#01073a',event)"></div>
+                        <div class="color-dot" style="background:#013a14" onclick="changeColor('Suspension', '#013a14',event)"></div>
                     </div>
                     <label>Acabado Piston</label>
                     <div class="contenedor-acabados">
-                        <button class="btn-finish" onclick="setRoughness('Suspension', 0.5)">Normal</button>
-                        <button class="btn-finish" onclick="setRoughness('Suspension', 0.05)">Cromo</button>
-                        <button class="btn-finish" onclick="setRoughness('Suspension', 0.9)">Mate</button>
+                        <button class="btn-finish" onclick="setRoughness('Suspension', 0.5,event)">Normal</button>
+                        <button class="btn-finish" onclick="setRoughness('Suspension', 0.05,event)">Cromo</button>
+                        <button class="btn-finish" onclick="setRoughness('Suspension', 0.9,event)">Mate</button>
                     </div>
                 </div>
             </div>
@@ -349,15 +356,15 @@
                 <div class="panel-content">
                     <label>Llantas</label>
                     <div class="color-grid">
-                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Llantas', '#bdc3c7')"></div>
-                        <div class="color-dot" style="background:#B1B52E" onclick="changeColor('Llantas', '#B1B52E')"></div>
-                        <div class="color-dot" style="background:#000" onclick="changeColor('Llantas', '#000')"></div>
+                        <div class="color-dot" style="background:#bdc3c7" onclick="changeColor('Llantas', '#bdc3c7',event)"></div>
+                        <div class="color-dot" style="background:#B1B52E" onclick="changeColor('Llantas', '#B1B52E',event)"></div>
+                        <div class="color-dot" style="background:#000" onclick="changeColor('Llantas', '#000',event)"></div>
                     </div>
                     <label>Acabado</label>
                     <div class="contenedor-acabados">
-                        <button class="btn-finish" onclick="setRoughness('Tanque', 0.5)">Normal</button>
-                        <button class="btn-finish" onclick="setRoughness('Llantas', 0.05)">Cromo</button>
-                        <button class="btn-finish" onclick="setRoughness('Llantas', 0.9)">Mate</button>
+                        <button class="btn-finish" onclick="setRoughness('Tanque', 0.5,event)">Normal</button>
+                        <button class="btn-finish" onclick="setRoughness('Llantas', 0.05,event)">Cromo</button>
+                        <button class="btn-finish" onclick="setRoughness('Llantas', 0.9,event)">Mate</button>
                     </div>
                 </div>
             </div>
@@ -367,8 +374,8 @@
                 <div class="panel-content">
                     <label>Tipo de Tacómetro</label>
                     <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                        <button class="btn-finish" id="btn-analog" onclick="toggleTacometro('analogico')">Analógico Retro</button>
-                        <button class="btn-finish" id="btn-digital" onclick="toggleTacometro('digital')">Digital Moderno</button>
+                        <button class="btn-finish" id="btn-analog" onclick="toggleTacometro('analogico',event)">Analógico Retro</button>
+                        <button class="btn-finish" id="btn-digital" onclick="toggleTacometro('digital',event)">Digital Moderno</button>
                     </div>
                     <p style="font-size: 0.6rem; color: #555; margin-top: 10px; text-transform: uppercase;">
                         * Cambia el estilo del panel de instrumentos
@@ -377,7 +384,7 @@
             </div>
         </div>
         <div class="accordion" style="background: #e0e0e0; border-top: 1px solid var(--accent);">
-            <h2>Finalizar Pedido</h2>
+            <h2>Finalizar Personalizacion</h2>
         </div>
         <div class="panel-content">
             <input type="text" id="user-name" placeholder="Tu Nombre" style="width:100%; margin-bottom:10px; padding:8px;">
@@ -418,14 +425,47 @@
     }
 
     function changeColor(pieza, color) {
-        const material = modelViewer.model.materials.find(m => m.name === pieza);
-        if (material) material.pbrMetallicRoughness.setBaseColorFactor(color);
-    }
+    // 1. Lógica visual 3D
+    const material = modelViewer.model.materials.find(m => m.name === pieza);
+    if (material) material.pbrMetallicRoughness.setBaseColorFactor(color);
+    
+    // 2. Resaltar el botón (NUEVO)
+    const container = event.target.parentElement;
+    container.querySelectorAll('.color-dot, .btn-finish').forEach(btn => btn.classList.remove('selected-option'));
+    event.target.classList.add('selected-option');
 
-    function setRoughness(pieza, valor) {
-        const material = modelViewer.model.materials.find(m => m.name === pieza);
-        if (material) material.pbrMetallicRoughness.setRoughnessFactor(valor);
-    }
+    // 3. Guardar para el email
+    if (pieza === "Luz") elecciones.color_Carcasa = color;
+    else if (pieza === "Suspension") elecciones.color_Piston = color;
+    else if (pieza === "Horquillas") elecciones.color_Horquilla = color;
+    else if (pieza === "Muelle") elecciones.Muelle = color;
+    else { elecciones["color_" + pieza] = color; }
+}
+
+function setRoughness(pieza, valor) {
+    // 1. Lógica visual 3D
+    const material = modelViewer.model.materials.find(m => m.name === pieza);
+    if (material) material.pbrMetallicRoughness.setRoughnessFactor(valor);
+    
+    // 2. Resaltar el botón (NUEVO)
+    const container = event.target.parentElement;
+    container.querySelectorAll('.btn-finish').forEach(btn => btn.classList.remove('selected-option'));
+    event.target.classList.add('selected-option');
+
+    // 3. Guardar para el email
+    let acabado = valor < 0.1 ? "Cromo" : (valor > 0.8 ? "Mate" : "Normal");
+    if (pieza === "Luz") elecciones.rough_Carcasa = acabado;
+    else if (pieza === "Suspension") elecciones.rough_Piston = acabado;
+    else if (pieza === "Horquillas") elecciones.rough_Horquilla = acabado;
+    else { elecciones["rough_" + pieza] = acabado; }
+}
+
+// Para el tacómetro, actualizamos el valor de la variable
+const originalToggleTacometro = toggleTacometro;
+toggleTacometro = function(tipo) {
+    originalToggleTacometro(tipo); // Ejecuta el cambio visual que ya tenías
+    elecciones.tacometro = tipo === 'analogico' ? "Analógico Retro" : "Digital Moderno";
+}
 
    // Variable para rastrear el estado
 let tacometroActual = 'analogico';
@@ -495,14 +535,9 @@ changeColor = function(pieza, color) {
     elecciones[pieza.toLowerCase()] = color;
 }
 
-const originalToggleTacometro = toggleTacometro;
-toggleTacometro = function(tipo) {
-    originalToggleTacometro(tipo);
-    elecciones.tacometro = tipo;
-}
 
 function enviarPresupuesto() {
-    emailjs.init("TU_PUBLIC_KEY"); // No olvides tu clave
+    emailjs.init("QHoeF582bi-La1HhP"); // No olvides tu clave
 
     const nombreUsuario = document.getElementById('user-name').value;
     const emailUsuario = document.getElementById('user-email').value;
@@ -519,7 +554,7 @@ function enviarPresupuesto() {
         ...elecciones  // Esto envía automáticamente todo lo que hay en la lista
     };
 
-    emailjs.send("TU_SERVICE_ID", "TU_TEMPLATE_ID", templateParams)
+    emailjs.send("service_6j2xk4j", "template_mx1wmrn", templateParams)
         .then(() => alert("¡Configuración enviada!"))
         .catch((err) => alert("Error: " + err));
 
