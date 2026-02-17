@@ -376,7 +376,17 @@
                 </div>
             </div>
         </div>
+        <div class="accordion" style="background: #e0e0e0; border-top: 1px solid var(--accent);">
+            <h2>Finalizar Pedido</h2>
+        </div>
+        <div class="panel-content">
+            <input type="text" id="user-name" placeholder="Tu Nombre" style="width:100%; margin-bottom:10px; padding:8px;">
+            <input type="email" id="user-email" placeholder="Tu Email" style="width:100%; margin-bottom:10px; padding:8px;">
+            <button class="btn-configurar" style="width: 100%;" onclick="enviarPresupuesto()">Pedir Presupuesto</button>
+        </div>
     </div>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
 <script>
     const modelViewer = document.querySelector('#moto-3d');
@@ -461,11 +471,63 @@ function toggleTacometro(tipo) {
     document.getElementById('btn-digital').style.borderColor = (tipo === 'digital') ? 'var(--accent)' : '#333';
 }
 
+// Variable para guardar lo que el usuario elige
+let elecciones = {
+    color_Tanque: "Serie", rough_Tanque: "Normal",
+    color_Guardabarros: "Serie", rough_Guardabarros: "Normal",
+    color_Colin: "Serie", rough_Colin: "Normal",
+    color_Carcasa: "Serie", rough_Carcasa: "Normal",
+    color_Asiento: "Serie",
+    color_Chasis: "Serie", rough_Chasis: "Normal",
+    color_Motor: "Serie", rough_Motor: "Normal",
+    color_Horquilla: "Serie", rough_Horquilla: "Normal",
+    color_Tija: "Serie", rough_Tija: "Normal",
+    Muelle: "Serie",
+    color_Piston: "Serie", rough_Piston: "Normal",
+    color_Llantas: "Serie", rough_Llantas: "Normal",
+    tacometro: "Analógico"
+};
+
+// Sobreescribimos tus funciones para que "anoten" el color elegido
+const originalChangeColor = changeColor;
+changeColor = function(pieza, color) {
+    originalChangeColor(pieza, color);
+    elecciones[pieza.toLowerCase()] = color;
+}
+
+const originalToggleTacometro = toggleTacometro;
+toggleTacometro = function(tipo) {
+    originalToggleTacometro(tipo);
+    elecciones.tacometro = tipo;
+}
+
+function enviarPresupuesto() {
+    emailjs.init("TU_PUBLIC_KEY"); // No olvides tu clave
+
+    const nombreUsuario = document.getElementById('user-name').value;
+    const emailUsuario = document.getElementById('user-email').value;
+
+    if (!nombreUsuario || !emailUsuario) {
+        alert("Por favor, rellena tu nombre y email");
+        return;
+    }
+
+    // Unimos los datos del usuario con nuestra lista de piezas "elecciones"
+    const templateParams = {
+        nombre: nombreUsuario,
+        email: emailUsuario,
+        ...elecciones  // Esto envía automáticamente todo lo que hay en la lista
+    };
+
+    emailjs.send("TU_SERVICE_ID", "TU_TEMPLATE_ID", templateParams)
+        .then(() => alert("¡Configuración enviada!"))
+        .catch((err) => alert("Error: " + err));
+
+}
 
 </script>
 </body>
 </html>
-
 
 
 
