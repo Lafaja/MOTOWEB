@@ -34,11 +34,31 @@
             z-index: 100; transition: transform 0.6s cubic-bezier(0.85, 0, 0.15, 1);
         }
 
-        .btn-configurar {
-            padding: 15px 40px; background: var(--accent); color: white;
-            border: none; border-radius: 50px; cursor: pointer;
-            font-weight: bold; text-transform: uppercase; margin-top: 20px;
+        /* Estilo base (el que ya tienes) */
+        .btn-configurar, .btn-atras {
+            padding: 15px 40px; 
+            background: var(--accent); 
+            color: white;
+            border: none; 
+            border-radius: 50px; 
+            cursor: pointer;
+            font-weight: bold; 
+            text-transform: uppercase; 
+            margin-top: 20px;
+            transition: all 0.3s ease; /* Esto hace que el cambio de color sea suave */
         }
+
+        /* EFECTO AL PASAR EL CURSOR */
+        .btn-configurar:hover, .btn-atras:hover {
+            background: #182466; /* Color más oscuro al pasar el cursor */
+            transform: translateY(-2px); /* Pequeño salto hacia arriba */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Sombra para dar profundidad */
+        }
+
+    /* EFECTO AL HACER CLIC (Opcional) */
+    .btn-configurar:active, .btn-atras:active {
+        transform: translateY(0);
+    }
 
         .hidden { transform: translateY(-100%); }
 
@@ -179,7 +199,7 @@
         <button class="btn-configurar" onclick="startApp()">Personalizar BMW K100</button>
     </section>
 
-    <model-viewer id="moto-3d" src="BMWK100.glb" camera-controls auto-rotate shadow-intensity="1.5" exposure="1.1" camera-orbit="45deg 75deg 105%"></model-viewer>
+    <model-viewer id="moto-3d" src="BMWK100.glb" with-credentials crossorigin="anonymous" camera-controls auto-rotate shadow-intensity="1.5" exposure="1.1" camera-orbit="45deg 75deg 105%"></model-viewer>
 
     <div class="sidebar">
         <div class="sidebar-header">
@@ -383,14 +403,34 @@
                 </div>
             </div>
         </div>
-        <div class="accordion" style="background: #e0e0e0; border-top: 1px solid var(--accent);">
-            <h2>Finalizar Personalizacion</h2>
+        <div class="sidebar">
+    
+
+    <div class="scroll-container">
+        <div id="paso-personalizacion">
+            <div style="padding: 20px; text-align: right;">
+                <button class="btn-configurar" onclick="irAFormulario()">Siguiente</button>
+            </div>
         </div>
-        <div class="panel-content">
-            <input type="text" id="user-name" placeholder="Tu Nombre" style="width:100%; margin-bottom:10px; padding:8px;">
-            <input type="email" id="user-email" placeholder="Tu Email" style="width:100%; margin-bottom:10px; padding:8px;">
-            <button class="btn-configurar" style="width: 100%;" onclick="enviarPresupuesto()">Pedir Presupuesto</button>
+
+        <div id="paso-formulario" style="display: none; padding: 25px;">
+            <label>Tu Nombre</label>
+            <input type="text" id="user-name" placeholder="Ej: Juan Pérez" style="width:100%; margin-bottom:15px; padding:12px; border:1px solid #ccc; border-radius:5px;">
+            
+            <label>Tu Email</label>
+            <input type="email" id="user-email" placeholder="email@ejemplo.com" style="width:100%; margin-bottom:15px; padding:12px; border:1px solid #ccc; border-radius:5px;">
+            
+            <label>Notas opcionales</label>
+            <textarea id="user-message" rows="4" placeholder="Cuéntanos más sobre tu proyecto..." style="width:100%; margin-bottom:20px; padding:12px; border:1px solid #ccc; border-radius:5px; font-family: inherit;"></textarea>
+            
+            <div style="display: flex; gap: 10px;">
+                <button class="btn-atras" style="flex: 2;" onclick="irAConfigurador()">Atrás</button>
+                <button id="btn-enviar-final" class="btn-configurar" style="flex: 2;" onclick="enviarPresupuesto()">
+                <span id="text-btn">Enviar Presupuesto</span>
+            </div>
         </div>
+    </div>
+</div>
     </div>
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
@@ -537,37 +577,82 @@ changeColor = function(pieza, color) {
 
 
 function enviarPresupuesto() {
-    emailjs.init("QHoeF582bi-La1HhP"); // No olvides tu clave
+    // 1. Inicialización de la Key (Usa la tuya)
+    emailjs.init("QHoeF582bi-La1HhP");
 
-    const nombreUsuario = document.getElementById('user-name').value;
-    const emailUsuario = document.getElementById('user-email').value;
+    // 2. Captura de elementos
+    const elNombre = document.getElementById('user-name');
+    const elEmail = document.getElementById('user-email');
+    const btnText = document.getElementById('text-btn');
+    const modelViewer = document.querySelector('#moto-3d');
 
-    if (!nombreUsuario || !emailUsuario) {
-        alert("Por favor, rellena tu nombre y email");
+    // Validación de existencia de elementos
+    if (!elNombre || !elEmail) {
+        alert("Error: No se encuentran los IDs 'user-name' o 'user-email' en tu HTML.");
         return;
     }
 
-    // Unimos los datos del usuario con nuestra lista de piezas "elecciones"
+    if (!elNombre.value || !elEmail.value) {
+        alert("Por favor, rellena tu nombre y email.");
+        return;
+    }
+
+    // 3. Captura de foto optimizada
+    let fotoBase64 = "";
+    if (modelViewer) {
+        try {
+            // Forzamos a la cámara a ir a una vista lateral/diagonal atractiva
+            // Ajusta los grados (90deg 75deg) según tu modelo
+            modelViewer.cameraOrbit = "45deg 75deg auto"; 
+            
+            // Esto hace que el cambio de cámara sea instantáneo para la foto
+            modelViewer.jumpCameraToGoal(); 
+
+            // Capturamos la imagen con un poco más de calidad (0.8)
+            fotoBase64 = modelViewer.toDataURL("image/jpeg", 0.5);
+            
+            console.log("Miniatura generada con éxito");
+        } catch (e) {
+            console.warn("Permisos de imagen insuficientes (CORS) o error de captura.");
+        }
+    }
+
+    // 4. Paquete de datos
     const templateParams = {
-        nombre: nombreUsuario,
-        email: emailUsuario,
-        ...elecciones  // Esto envía automáticamente todo lo que hay en la lista
+        nombre: elNombre.value,
+        email: elEmail.value,
+        notas: document.getElementById('user-message')?.value || "",
+        foto_moto: fotoBase64,
+        ...elecciones 
     };
 
-    emailjs.send("service_6j2xk4j", "template_mx1wmrn", templateParams)
-        .then(() => alert("¡Configuración enviada!"))
-        .catch((err) => alert("Error: " + err));
+    // Bloqueo del botón
+    if (btnText) btnText.innerText = "Enviando...";
 
+    // 5. Envío a EmailJS
+    emailjs.send("service_6j2xk4j", "template_mx1wmrn", templateParams)
+        .then(() => {
+            alert("¡Configuración enviada con éxito!");
+            if (btnText) btnText.innerText = "Enviar Presupuesto";
+        })
+        .catch((err) => {
+            alert("Error de EmailJS: " + JSON.stringify(err));
+            if (btnText) btnText.innerText = "Reintentar";
+        });
+}
+function irAFormulario() {
+    document.getElementById('paso-personalizacion').style.display = 'none';
+    document.getElementById('paso-formulario').style.display = 'block';
+    document.getElementById('sidebar-title').innerText = 'Tus Datos';
+}
+
+function irAConfigurador() {
+    document.getElementById('paso-personalizacion').style.display = 'block';
+    document.getElementById('paso-formulario').style.display = 'none';
+    document.getElementById('sidebar-title').innerText = 'Configurador';
 }
 
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
 
